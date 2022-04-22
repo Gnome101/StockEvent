@@ -4,7 +4,6 @@ google-api-python-client
 google-api-core
 google-auth 
 google-auth-oauthlib
-google.oauth2
 requests
 yahoo_fin
 datetime
