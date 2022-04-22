@@ -8,7 +8,8 @@ import time
 from datetime import datetime , timedelta
 #Used to get earnings data
 from bs4 import BeautifulSoup
-
+#Used to get environment variables
+import os
 
 
 
@@ -88,7 +89,7 @@ def alpha_div(ticker):
 def polyio_div(ticker):
     try:
       now = datetime.now()
-      apikeyPoly = pd.read_csv('./Inputs/Info.csv')['Data'][0]
+      apikeyPoly = os.environ["POLYGON_KEY"] 
       
       apikeyPoly = apikeyPoly.strip()
       api_url_dividends = f'https://api.polygon.io/v3/reference/dividends?ticker={ticker}&apiKey={apikeyPoly}'

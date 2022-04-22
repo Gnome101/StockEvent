@@ -3,10 +3,12 @@ import yahoo_fin.stock_info as si
 import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
+#Used to get environment variables
+import os
 
 def polyio_split(ticker):
     fail = 0
-    apikeyPoly = pd.read_csv('./Inputs/Info.csv')['Data'][0]    
+    apikeyPoly = os.environ["POLYGON"]    
     apikeyPoly = apikeyPoly.strip()
     api_url_dividends = f'https://api.polygon.io/v3/reference/splits?ticker={ticker}&apiKey={apikeyPoly}'
     print("From Polygon.IO Pulling",api_url_dividends, "for", ticker, "Splits")

@@ -1,27 +1,23 @@
 from apiclient.discovery import build
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from oauth2client import client
-from httplib2 import Http
-from google.auth.transport.requests import Request
-import pickle
+from google.oauth2 import service_account
+import json
+import requests
 import os
 
 
-scopes = ['https://www.googleapis.com/auth/calendar']
+
 
 def main(title):
-    creds = None
-    CONTENTS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
-    CREDS = client.Credentials.new_from_json(CONTENTS)
-    service = build('calendar', 'v3', http=CREDS.authorize(Http()))
-    result = service.calendarList().list().execute()    
-    calendars = result['items']
+       
+    SERVICE_ACCOUNT = os.environ["SERVICE_ACCOUNT"]
+    service_json = json.loads(SERVICE_ACCOUNT,strict=False)
+
+    scopes = ['https://www.googleapis.com/auth/calendar']
+    creds= service_account.Credentials.from_service_account_info(service_json,scopes=scopes)
     
-    for i in range(len(calendars)):
-        if(calendars[i]['summary'].strip() == title):
-            index = i
-    sum = calendars[index]['summary']   
-    id =  calendars[index]['id']      
-    return id,creds    
+    service = build("calendar", "v3",credentials= creds)   
+   
+    calendar_ID = os.environ["CALENDAR_ID"]
+    return calendar_ID,creds    
 
