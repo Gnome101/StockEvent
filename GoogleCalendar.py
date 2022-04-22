@@ -8,7 +8,7 @@ import os
 
 
 
-def main(title):
+def main():
        
     SERVICE_ACCOUNT = os.environ["SERVICE_ACCOUNT"]
     service_json = json.loads(SERVICE_ACCOUNT,strict=False)

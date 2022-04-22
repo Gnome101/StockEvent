@@ -10,9 +10,6 @@ import numpy as np
 import random
 from apiclient.discovery import build
 def main():
-    json_str = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
-
-
 
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
@@ -23,7 +20,7 @@ def main():
     Info = pd.read_csv('./Inputs/Info.csv')
     Calendar_Title = Info['Data'][0].strip()
     print(Calendar_Title)
-    calendar_id,creds = gc.main(Calendar_Title)
+    calendar_id,creds = gc.main()
     service = build("calendar", "v3",credentials= creds)
 
     poly_div = []
