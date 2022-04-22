@@ -1,10 +1,11 @@
 pandas 
 numpy
-apiclient.discovery
-google.oauth2.credentials 
-google_auth_oauthlib.flow
-google.auth.transport.requests
+google-api-python-client
+google-api-core
+google-auth
+google-auth-httplib2 
+google-auth-oauthlib 
 requests
-yahoo_fin.stock_info
+yahoo_fin
 datetime
 bs4 
