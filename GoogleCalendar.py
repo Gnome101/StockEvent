@@ -2,6 +2,7 @@ from apiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from oauth2client import client
+from httplib2 import Http
 from google.auth.transport.requests import Request
 import pickle
 import os
@@ -12,10 +13,8 @@ scopes = ['https://www.googleapis.com/auth/calendar']
 def main(title):
     creds = None
     CONTENTS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
-    creds = client.Credentials.new_from_json(CONTENTS)
-            
-           
-    service = build("calendar", "v3",credentials= creds)
+    CREDS = client.Credentials.new_from_json(CONTENTS)
+    service = build('calendar', 'v3', http=CREDS.authorize(Http()))
     result = service.calendarList().list().execute()    
     calendars = result['items']
     
