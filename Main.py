@@ -10,13 +10,14 @@ import EventCreation as ec
 import numpy as np
 import random
 from apiclient.discovery import build
+
 def main():
 
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
     sleep = int(Info['Data'][1])
-    randsleep = int(Info['Data'][2])
-    tickers_len = len(tickers_list)
+    
+    tickers_len = len(tickers_list) 
 
     Info = pd.read_csv('./Inputs/Info.csv')
     Calendar_Title = Info['Data'][0].strip()
@@ -251,11 +252,28 @@ def main():
     #np.savetxt("./Outputs/All_Splits.csv", total_split,  fmt='%s',delimiter=",")
 
 if __name__ == "__main__":
+    tickers_list = pd.read_csv('./Inputs/TickerList.csv')
+    Info = pd.read_csv('./Inputs/Info.csv')
+    randsleep = int(Info['Data'][2])
+    days_run = Info['Data'][7]
+    days_array = []
+    print(days_run)
+    for i in range(len(days_run)):
+        days_array.append(int(days_run[i]))
+    print(days_array)
     today = datetime.now()    
     day = today.weekday()
-    if(day == 2 or day == 4 or day == 6 ):
+    count = 0
+    for i in range(len(days_array)):
+        if(day == days_array[i]):            
+            count += 1
+            
+    if(count > 0):
         print("Running Time")
-        main()
+        main()  
     else:
-        print("Not the scheduled day of the week")
+        print("Not scheduled day")
+            
+        
+  
     
