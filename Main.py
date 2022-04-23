@@ -251,8 +251,9 @@ def main():
     #np.savetxt("./Outputs/All_Splits.csv", total_split,  fmt='%s',delimiter=",")
 
 if __name__ == "__main__":
-    today = datetime.now()
+    today = datetime.now()    
     day = today.weekday()
+    print("Day:",day)
     if(day == 2 or day == 4 or day == 7 ):
         print("Running Time")
     else:
