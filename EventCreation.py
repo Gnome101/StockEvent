@@ -2,10 +2,10 @@ from datetime import datetime , timedelta
 import pandas as pd
 tickers_list = pd.read_csv('./Inputs/TickerList.csv')
 Info = pd.read_csv('./Inputs/Info.csv')
-remind_1_length = int(Info['Data'][4])
-remind_1_type = (Info['Data'][5]).strip()
-remind_2_length = int(Info['Data'][6])
-remind_2_type = (Info['Data'][7]).strip()
+remind_1_length = int(Info['Data'][3])
+remind_1_type = (Info['Data'][4]).strip()
+remind_2_length = int(Info['Data'][5])
+remind_2_type = (Info['Data'][6]).strip()
 def createDivEvent(ticker,service,polygon,nasdaq,alpha ):
   
   fail = 0
