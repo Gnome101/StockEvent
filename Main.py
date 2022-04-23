@@ -183,7 +183,7 @@ def main():
                 summary = result['items'][i]['summary']
                 descrp = descrp.strip()
                 summary = summary.strip()
-                guess_descrip = f'Polygon.IO: {polygon} | Nasdaq: {nasdaq} | Seeking Alpha: {alpha}'
+                guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}'
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary =guess_summary.strip()
@@ -210,7 +210,7 @@ def main():
                 summary = result['items'][i]['summary']
                 descrp = descrp.strip()
                 summary = summary.strip()
-                guess_descrip = f'Nasdaq: {nasdaq} |  Yahoo: {yahoo} | Finviz: {finviz}'
+                guess_descrip = f'Nasdaq: {nasdaq}\nYahoo: {yahoo}\nFinviz: {finviz}'
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
@@ -235,7 +235,7 @@ def main():
                 summary = result['items'][i]['summary']
                 descrp = descrp.strip()
                 summary = summary.strip()
-                guess_descrip = f'Polygon.IO: {polygon} | Nasdaq: {nasdaq} | MarketBeat: {mbeat}'
+                guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nMarketBeat: {mbeat}'
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has a split today'
                 guess_summary =guess_summary.strip()
