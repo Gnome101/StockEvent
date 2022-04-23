@@ -8,7 +8,7 @@ import os
 
 def polyio_split(ticker):
     fail = 0
-    apikeyPoly = os.environ["POLYGON"]    
+    apikeyPoly = os.environ["POLYGON_KEY"]    
     apikeyPoly = apikeyPoly.strip()
     api_url_dividends = f'https://api.polygon.io/v3/reference/splits?ticker={ticker}&apiKey={apikeyPoly}'
     print("From Polygon.IO Pulling",api_url_dividends, "for", ticker, "Splits")
