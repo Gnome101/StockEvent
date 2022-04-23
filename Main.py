@@ -253,7 +253,7 @@ def main():
 if __name__ == "__main__":
     today = datetime.now()    
     day = today.weekday()
-    if(day == 2 or day == 4 or day == 7 ):
+    if(day == 2 or day == 4 or day == 6 ):
         print("Running Time")
         main()
     else:
