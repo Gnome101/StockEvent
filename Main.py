@@ -253,9 +253,9 @@ def main():
 if __name__ == "__main__":
     today = datetime.now()    
     day = today.weekday()
-    print("Day:",day)
     if(day == 2 or day == 4 or day == 7 ):
         print("Running Time")
+        main()
     else:
         print("Not the scheduled day of the week")
     
