@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import Dividend as dv
 import Earnings as er
+from datetime import datetime 
 import Splits as sp   
 import GoogleCalendar as gc
 import EventCreation as ec
@@ -245,9 +246,15 @@ def main():
             if(fail2 != 1):
                 service.events().insert(calendarId=calendar_id, body=event).execute()
 
-    np.savetxt("./Outputs/All_Dividends.csv", total_div,  fmt='%s',delimiter=",")
-    np.savetxt("./Outputs/All_Earnings.csv", total_earn,  fmt='%s',delimiter=",")
-    np.savetxt("./Outputs/All_Splits.csv", total_split,  fmt='%s',delimiter=",")
+    #np.savetxt("./Outputs/All_Dividends.csv", total_div,  fmt='%s',delimiter=",")
+    #np.savetxt("./Outputs/All_Earnings.csv", total_earn,  fmt='%s',delimiter=",")
+    #np.savetxt("./Outputs/All_Splits.csv", total_split,  fmt='%s',delimiter=",")
 
 if __name__ == "__main__":
-    main()
+    today = datetime.now()
+    day = today.weekday()
+    if(day == 2 or day == 4 or day == 7 ):
+        print("Running Time")
+    else:
+        print("Not the scheduled day of the week")
+    
