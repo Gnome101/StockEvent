@@ -6,4 +6,4 @@ Reminder 1 time before event(minutes), 10
 Reminder 1 type(popup/email), email
 Reminder 2 time before event(minutes), 1
 Reminder 2 type(popup/email), popup
-Days to run(Monday = 0| Tues = 1|...),2546
+Days to run(Monday = 0| Tues = 1|...),04
