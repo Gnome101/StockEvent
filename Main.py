@@ -252,6 +252,7 @@ def main():
     #np.savetxt("./Outputs/All_Splits.csv", total_split,  fmt='%s',delimiter=",")
 
 if __name__ == "__main__":
+    
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
     randsleep = int(Info['Data'][2])
@@ -263,6 +264,7 @@ if __name__ == "__main__":
     print(days_array)
     today = datetime.now()    
     day = today.weekday()
+    print(day)
     count = 0
     for i in range(len(days_array)):
         if(day == days_array[i]):            
