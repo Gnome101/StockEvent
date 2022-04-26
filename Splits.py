@@ -11,7 +11,7 @@ def polyio_split(ticker):
     apikeyPoly = os.environ["POLYGON_KEY"]    
     apikeyPoly = apikeyPoly.strip()
     api_url_dividends = f'https://api.polygon.io/v3/reference/splits?ticker={ticker}&apiKey={apikeyPoly}'
-    print("From Polygon.IO Pulling",api_url_dividends, "for", ticker, "Splits")
+    print("From Polygon.IO Pulling","for", ticker, "Splits")
     try:
         data_dividend = requests.get(api_url_dividends).json()
     except:

@@ -51,6 +51,7 @@ def main():
                 polycount = 0
             ticker = tickers_list['Ticker'][polycount]
 
+            print(len(poly_split) != tickers_len,(time.time()-p2 > 60, len(poly_div) == tickers_len))
             if(len(poly_div) != tickers_len and time.time()-p1 >= 60):
                 date = dv.polyio_div(ticker)                
                 poly_div.append(date)
@@ -60,6 +61,7 @@ def main():
                 poly_split.append(date)
                 polycount += 1                
             elif(len(poly_split) == tickers_len and pstop == 0):
+                print("Count now increased by polygon",+2)
                 count += 2
                 pstop =1
         if(prev_poly != polycount or tickers_len <= 4):
@@ -193,7 +195,7 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary =guess_summary.strip()
-                
+
                 if(descrp == guess_descrip):
                     
                     fail2 = 1  
