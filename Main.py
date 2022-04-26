@@ -167,7 +167,8 @@ def main():
         
     
     fail = 0
-    fail2 = 0    
+    fail2 = 0  
+    #Check for mimicked events and check for updates events.  
     for i in range(len(total_div)):
         fail = 0
         fail2 = 0
@@ -182,13 +183,17 @@ def main():
                
                 descrp = result['items'][i]['description']
                 summary = result['items'][i]['summary']
+                remind = result['items'][i]['reminders']
+
                 descrp = descrp.strip()
                 summary = summary.strip()
+                remind = remind.strip()
+
                 guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}'
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary =guess_summary.strip()
-
+                
                 if(descrp == guess_descrip):
                     
                     fail2 = 1  
