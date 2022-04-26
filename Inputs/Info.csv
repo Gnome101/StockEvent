@@ -2,8 +2,8 @@ Title,Data
 Calendar Title, Stock Stuff
 Sleep Time, 24
 Random Sleep, 16
-Reminder 1 time before event(minutes), 48* 60
+Reminder 1 time before event(minutes), 1440
 Reminder 1 type(popup/email), email
-Reminder 2 time before event(minutes), 24* 60
+Reminder 2 time before event(minutes), 2880
 Reminder 2 type(popup/email), email
 Days to run(Monday = 0| Tues = 1|...),012345
