@@ -71,17 +71,17 @@ def main():
             if(nascount == tickers_len):
                 nascount = 0
             ticker = tickers_list['Ticker'][nascount]
-            if(len(nasdaq_div) != tickers_len and time.time()-n1 >= 40 + (random.random() * 5)):
+            if(len(nasdaq_div) != tickers_len and time.time()-n1 >= 30 + (random.random() * 5)):
                 date = dv.nasdaq_div(ticker)
                 nasdaq_div.append(date)
                 nascount += 1
                 n1=time.time()
-            elif(len(nasdaq_earn) != tickers_len and time.time()-n2 >= 40 + (random.random() * 7) and len(nasdaq_div) == tickers_len):
+            elif(len(nasdaq_earn) != tickers_len and time.time()-n2 >= 30 + (random.random() * 5) and len(nasdaq_div) == tickers_len):
                 date = er.nasdaq_earn(ticker)
                 nasdaq_earn.append(date)
                 nascount += 1
                 n2=time.time()                                                
-            elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 40 + (random.random() * 4) and len(nasdaq_earn) == tickers_len ):
+            elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len ):
                 split_dates = sp.nasdaq_split(tickers_list)  
                 print("nasdaq", split_dates)              
                 nasdaq_split = split_dates
@@ -106,20 +106,20 @@ def main():
             if(scrapecount == tickers_len):
                 scrapecount = 0     
             ticker = tickers_list['Ticker'][scrapecount]
-            if(len(finviz_earn) != tickers_len and time.time()-s >= 40+ (random.random() * 3)):
+            if(len(finviz_earn) != tickers_len and time.time()-s >= 30+ (random.random() * 3)):
                 date =er.finviz_earn(ticker)
                 finviz_earn.append(date)
             elif(len(finviz_earn) == tickers_len and fstop == 0 ):
                 count += 1
                 fstop = 1
-            if(len(alpha_div) != tickers_len and time.time()-s >= 45+ (random.random() * 3)):
+            if(len(alpha_div) != tickers_len and time.time()-s >= 35+ (random.random() * 3)):
                 date = dv.alpha_div(ticker)
                 alpha_div.append(date)
                 scrapecount += 1
             elif(len(alpha_div) == tickers_len and sstop == 0  ):
                 count += 1
                 sstop = 1
-            if(len(marketbeat_split) != tickers_len and time.time()-s >= 45 + (random.random() * 4)):
+            if(len(marketbeat_split) != tickers_len and time.time()-s >= 35 + (random.random() * 2)):
                 split_dates = sp.marketbeat_split(tickers_list)
                 print("Marketbeat", split_dates)
                 marketbeat_split = split_dates                
@@ -185,11 +185,11 @@ def main():
                
                 descrp = result['items'][i]['description']
                 summary = result['items'][i]['summary']
-                remind = result['items'][i]['reminders']
+                #remind = result['items'][i]['reminders']
 
                 descrp = descrp.strip()
                 summary = summary.strip()
-                remind = remind.strip()
+                #remind = remind.strip()
 
                 guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}'
                 guess_descrip =guess_descrip.strip()
