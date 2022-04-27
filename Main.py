@@ -51,7 +51,7 @@ def main():
                 polycount = 0
             ticker = tickers_list['Ticker'][polycount]
 
-            print(len(poly_split) != tickers_len,(time.time()-p2 > 60, len(poly_div) == tickers_len))
+            print(len(poly_split) != tickers_len,time.time()-p2 > 60, len(poly_div) == tickers_len)
             if(len(poly_div) != tickers_len and time.time()-p1 >= 60):
                 date = dv.polyio_div(ticker)                
                 poly_div.append(date)
@@ -64,7 +64,7 @@ def main():
                 print("Count now increased by polygon",+2)
                 count += 2
                 pstop =1
-        if(prev_poly != polycount or tickers_len <= 4):
+        if(prev_poly != polycount):
             p1 = time.time()
             p2 = time.time()
         for i in range(1):
