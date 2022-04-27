@@ -60,8 +60,7 @@ def main():
                 date = sp.polyio_split(ticker)                
                 poly_split.append(date)
                 polycount += 1                
-            elif(len(poly_split) == tickers_len and pstop == 0):
-                print("Count now increased by polygon",+2)
+            elif(len(poly_split) == tickers_len and pstop == 0):                
                 count += 2
                 pstop =1
         if(prev_poly != polycount):

@@ -58,9 +58,9 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz ):
     Error = " | Discrepancy!"
   if(nasdaq != ""):
     date = nasdaq 
-  elif(polygon != ""):
+  elif(yahoo != ""):
     date = yahoo
-  elif(alpha != ""):
+  elif(finviz != ""):
     date = finviz
   else:
     fail = 1
