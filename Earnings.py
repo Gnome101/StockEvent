@@ -79,16 +79,18 @@ def finviz_earn(ticker):
         b = list(single.children)[0]
         earn_date = b.get_text()
         
-            
+        print("Finv1",earn_date)  
         year = str(datetime.now().year)
         earn_date = year +" "+ earn_date
         earn_date = datetime.strptime(earn_date, '%Y %b %d')
+        
         print("Finv1",earn_date)
-
         if(earn_date.find("AMC") == -1):
             AMC = 0
-
+        elif(earn_date.find("AMC") == 1):
+            AMC = 1
         earn_date = earn_date[:6]
+        print("Finv1",earn_date)
         if(earn_date.date() < datetime.now().date()):
             earn_date = ""
             AMC = -1
