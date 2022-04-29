@@ -134,6 +134,7 @@ def main():
                 count+=1
                 mbstop = 1
         pb1 = startTime
+        pb2 = startTime
         nb2 = startTime
         nb3 = startTime
         if(p2 > 0):
