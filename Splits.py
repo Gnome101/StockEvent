@@ -5,10 +5,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 #Used to get environment variables
 import os
-proxyDict = {
-              "http"  : os.environ.get('IPB_HTTP', ''),
-              "https" : os.environ.get('IPB_HTTPS', '')
-            }
+
 def polyio_split(ticker):
     fail = 0
     apikeyPoly = os.environ["POLYGON_KEY"]    
@@ -31,6 +28,10 @@ def polyio_split(ticker):
 
     return date 
 def nasdaq_split(ticker_list):
+    proxyDict = {
+              "http"  : os.environ.get('IPB_HTTP', ''),
+              "https" : os.environ.get('IPB_HTTPS', '')
+            }
     fail = 0
     headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0',
