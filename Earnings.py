@@ -83,7 +83,7 @@ def finviz_earn(ticker):
         year = str(datetime.now().year)
         earn_date = year +" "+ earn_date
         earn_date = datetime.strptime(earn_date, '%Y %b %d')
-        earn_date = earn_date 
+        print("Finv1",earn_date)
 
         if(earn_date.find("AMC") == -1):
             AMC = 0
@@ -95,6 +95,8 @@ def finviz_earn(ticker):
     except:
         earn_date = "" 
         AMC = -1
+    print("Finv2",earn_date)
+    print("Finv3",AMC)
     return earn_date, AMC
 def yahoo_earn(ticker):
     AMC = 2

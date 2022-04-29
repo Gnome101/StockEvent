@@ -61,6 +61,10 @@ def returnEarningTime(alert):
 def createEarnEvent(ticker,service,nasdaq,yahoo,finviz, fin_alert ,yah_alert ): 
   #fin alert can be 0 or 1
   #yah alert can be 0, 1, or 2 
+  print(ticker)
+  print("Fin_alert",fin_alert)
+  print("Yah_alert",yah_alert)
+  print(finviz)
   if(fin_alert == yah_alert):
     if(fin_alert == 1):
       time = "AMC"

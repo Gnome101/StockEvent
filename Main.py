@@ -220,6 +220,7 @@ def main():
         fail2 = 0
         finviz_after_alert = finviz_after[i]
         yahoo_after_alert = yahoo_after[i]
+        print(total_earn[i][3])
         event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3],finviz_after_alert,yahoo_after_alert)
         if(fail != 1):
             ticker = total_div[i][0]
