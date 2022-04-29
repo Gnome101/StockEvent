@@ -41,6 +41,7 @@ def main():
     nascount = 0
     count = 0
     startTime = time.time()
+    nasdaq_time_out = 0
     #Polygon was a little odd, so it needed an extra timer  
     p1, p2, n1,n2,n3,y1,s = -65,-65,-65,-65,-65,-65,-65,
     pstop,nstop,ystop,sstop,mbstop,fstop = 0,0,0,0,0,0
@@ -51,7 +52,7 @@ def main():
                 polycount = 0
             ticker = tickers_list['Ticker'][polycount]
 
-            print(len(poly_split) != tickers_len,time.time()-p2 > 60, len(poly_div) == tickers_len)
+            #print(len(poly_split) != tickers_len,time.time()-p2 > 60, len(poly_div) == tickers_len)
             if(len(poly_div) != tickers_len and time.time()-p1 >= 60):
                 date = dv.polyio_div(ticker)                
                 poly_div.append(date)
@@ -80,12 +81,17 @@ def main():
                 nasdaq_earn.append(date)
                 nascount += 1
                 n2=time.time()                                                
-            elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len ):
+            elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len  ):
                 split_dates = sp.nasdaq_split(tickers_list)  
                 print("nasdaq", split_dates)              
                 nasdaq_split = split_dates
                 nascount += 1
                 n3=time.time()
+                if(len(nasdaq_split) != tickers_len ):
+                    nasdaq_time_out += 1
+                if(nasdaq_time_out > 2):
+                    for i in range(tickers_list):
+                        nasdaq_split.append("")
             elif(len(nasdaq_earn) == tickers_len and nstop == 0 and len(nasdaq_split) == tickers_len ):
                 count += 3
                 nstop = 1
@@ -139,7 +145,7 @@ def main():
         print("Waiting | Time since start for Polygon: ","Dividends:",round((p1- startTime),2),"Splits",round((pb2-startTime),2))
         print("Waiting | Time since start for  NasDaq","Dividends:", round((n1-startTime),2),"Earnings:", round((nb2-startTime),2),
         "Splits:",round((nb3- startTime),2))
-        print("Waiting | Time since start for seeking yahoo: ","Earnings:", round((y1-startTime),2))
+        print("Waiting | Time since start for yahoo: ","Earnings:", round((y1-startTime),2))
         print("Waiting | Time since start for seeking alpha, finviz, and marketbeat: ",round((s-startTime),2))
         print("Number of finished ones:", count ,"Total Number of Tickers:",tickers_len ) 
         if(count != 9 ):
