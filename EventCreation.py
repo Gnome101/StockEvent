@@ -25,17 +25,16 @@ def createDivEvent(ticker,service,polygon,nasdaq,alpha ):
   else:
     fail = 1
     date = datetime.now()        
-
-  end_time  = date + timedelta(hours = 12)
+#end_time  = date + timedelta(hours = 12)
   event = {
     'summary': f'{ticker} has an ex-dividend date today' + Error,  
     'description': f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}  ',
     'start': {
-      'dateTime': date.strftime("%Y-%m-%dT%H:%M:%S"),
+      'dateTime': date.strftime("%Y-%m-%dT6:0:0"),
       'timeZone': 'America/Los_Angeles',
     },
     'end': {
-      'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+      'dateTime': date.strftime("%Y-%m-%dT16:0:0"),
       'timeZone': 'America/Los_Angeles',
       },  
     'reminders': {
@@ -66,16 +65,16 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz ):
     fail = 1
     date = datetime.now()
     
-  end_time  = date + timedelta(hours = 12)
+  #end_time  = date + timedelta(hours = 12)
   event = {
   'summary': f'{ticker} has earnings today' + Error,  
   'description': f'Nasdaq: {nasdaq}\nYahoo: {yahoo}\nFinviz: {finviz}',
   'start': {
-    'dateTime': date.strftime("%Y-%m-%dT%H:%M:%S"),
+    'dateTime': date.strftime("%Y-%m-%dT6:0:0"),
     'timeZone': 'America/Los_Angeles',
   },
   'end': {
-    'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+    'dateTime': date.strftime("%Y-%m-%dT16:0:0"),
     'timeZone': 'America/Los_Angeles',
     },  
   'reminders': {
@@ -103,16 +102,16 @@ def createSplitEvent(ticker,service,polygon,nasdaq,mbeat):
   else:
     fail = 1
     date = datetime.now()
-  end_time  = date + timedelta(hours = 12)
+  #end_time  = date + timedelta(hours = 12)
   event = {
   'summary': f'{ticker} has a split today' + Error ,  
   'description': f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nMarketBeat: {mbeat}',
   'start': {
-    'dateTime': date.strftime("%Y-%m-%dT%H:%M:%S"),
+    'dateTime': date.strftime("%Y-%m-%dT6:0:0"),
     'timeZone': 'America/Los_Angeles',
   },
   'end': {
-    'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+    'dateTime': date.strftime("%Y-%m-%dT16:0:0"),
     'timeZone': 'America/Los_Angeles',
     },  
   'reminders': {

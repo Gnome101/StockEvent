@@ -44,7 +44,7 @@ def nasdaq_earn(ticker):
         earn_date = earn_date.strip()
         earn_date = datetime.strptime(earn_date, '%b %d, %Y')
     except:
-        earn_date = datetime(9999,12,12,0,0)
+        earn_date = datetime.now()- timedelta(days=35)
     if(earn_date.date() < datetime.now().date()):
           earn_date = ""
     
@@ -80,14 +80,11 @@ def finviz_earn(ticker):
         b = list(single.children)[0]
         earn_date = b.get_text()
         
-        if(earn_date.find("AMC") != -1):
-            add_day = 1
-        earn_date = earn_date[:6]
-    
+            
         year = str(datetime.now().year)
         earn_date = year +" "+ earn_date
         earn_date = datetime.strptime(earn_date, '%Y %b %d')
-        earn_date = earn_date + timedelta(days = add_day)
+        earn_date = earn_date 
         
         if(earn_date.date() < datetime.now().date()):
             earn_date = ""
