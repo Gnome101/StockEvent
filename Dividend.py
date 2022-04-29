@@ -35,7 +35,7 @@ def nasdaq_div(ticker):
     
     try:
       response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
-      print(resonse)
+      print(response)
       print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
       response_json = response.json() 
       dividend_data = response_json['data']
