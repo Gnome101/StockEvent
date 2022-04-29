@@ -137,6 +137,8 @@ def main():
         pb2 = startTime
         nb2 = startTime
         nb3 = startTime
+        if(p1 < 0):
+            p1 = 0.1
         if(p2 > 0):
             pb2 = p2
         if(n2 > 0):
