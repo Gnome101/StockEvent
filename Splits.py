@@ -47,8 +47,12 @@ def nasdaq_split(ticker_list):
     }
 
     params = {'date': '2022-04-14',}
+    proxyDict = {
+              "http"  : os.environ.get('IPB_HTTP', ''),
+              "https" : os.environ.get('IPB_HTTPS', '')
+            }
     try:
-        response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params)
+        response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params, proxies=proxyDict)
         print("From NasDaq Pulling",response, "for", "Splits")
         response_json = response.json()
         split_data = response_json['data']['rows']
