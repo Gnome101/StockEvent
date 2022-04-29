@@ -90,6 +90,7 @@ def main():
                 if(len(nasdaq_split) != tickers_len ):
                     nasdaq_time_out += 1
                 if(nasdaq_time_out > 2):
+                    print("Nasdaq timed out for splits, making random ones")
                     for i in range(tickers_list):
                         nasdaq_split.append("")
             elif(len(nasdaq_earn) == tickers_len and nstop == 0 and len(nasdaq_split) == tickers_len ):

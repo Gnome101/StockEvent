@@ -32,10 +32,13 @@ def nasdaq_div(ticker):
     }
 
     params = { 'assetclass': 'stocks'}
-    
+    proxyDict = {
+              "http"  : os.environ.get('IPB_HTTP', ''),
+              "https" : os.environ.get('IPB_HTTPS', '')
+            }
     try:
-      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
-      print(response)
+      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
+      print("NasDaq",response)
       print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
       response_json = response.json() 
       dividend_data = response_json['data']
