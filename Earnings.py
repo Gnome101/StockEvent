@@ -52,8 +52,7 @@ def nasdaq_earn(ticker):
 
 def finviz_earn(ticker):
 
-
-    add_day = 0    
+    AMC = 1
     
     url = f'https://finviz.com/quote.ashx?t={ticker}'
     response = ''
@@ -85,20 +84,34 @@ def finviz_earn(ticker):
         earn_date = year +" "+ earn_date
         earn_date = datetime.strptime(earn_date, '%Y %b %d')
         earn_date = earn_date 
-        
+
+        if(earn_date.find("AMC") == -1):
+            AMC = 0
+
+        earn_date = earn_date[:6]
         if(earn_date.date() < datetime.now().date()):
             earn_date = ""
+            AMC = -1
     except:
         earn_date = "" 
-    return earn_date
+        AMC = -1
+    return earn_date, AMC
 def yahoo_earn(ticker):
+    AMC = 2
     try:
         earn_date = si.get_next_earnings_date(ticker)
         if(earn_date.date() < datetime.now().date()):
             earn_date = "" 
+            AMC = -1
+        else:
+            if(earn_date.hour == 12):
+                AMC = 0
+            elif(earn_date.hour == 20):
+                AMC = 1
     except Exception as ex:
         earn_date = ""
+        AMC = -1
     print("From Yahoo Pulling",earn_date ,"for", ticker, "Earnings")
     
-    return earn_date
+    return earn_date, AMC
      

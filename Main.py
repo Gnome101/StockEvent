@@ -35,6 +35,8 @@ def main():
     finviz_earn = []
     marketbeat_split = []
 
+    finviz_after = []
+    yahoo_after = []
     polycount = 0
     yahoocount = 0
     scrapecount = 0
@@ -101,7 +103,8 @@ def main():
                 yahoocount = 0
             ticker = tickers_list['Ticker'][yahoocount]
             if(len(yahoo_earn) != tickers_len and time.time()-y1 >= 30):
-                date = er.yahoo_earn(ticker)
+                date, AMC = er.yahoo_earn(ticker)
+                yahoo_after.append(AMC)
                 yahoo_earn.append(date)
                 yahoocount += 1
                 y1 = time.time()
@@ -113,7 +116,8 @@ def main():
                 scrapecount = 0     
             ticker = tickers_list['Ticker'][scrapecount]
             if(len(finviz_earn) != tickers_len and time.time()-s >= 30+ (random.random() * 3)):
-                date =er.finviz_earn(ticker)
+                date, AMC =er.finviz_earn(ticker)
+                finviz_after.append(AMC)
                 finviz_earn.append(date)
             elif(len(finviz_earn) == tickers_len and fstop == 0 ):
                 count += 1
@@ -138,7 +142,7 @@ def main():
         nb2 = startTime
         nb3 = startTime
         if(p1 < 0):
-            p1 = 0.1
+            p1 = startTime + 0.1
         if(p2 > 0):
             pb2 = p2
         if(n2 > 0):
@@ -214,12 +218,18 @@ def main():
     for i in range(len(total_earn)):
         fail = 0
         fail2 = 0
-        event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3])
+        finviz_after_alert = finviz_after[i]
+        yahoo_after_alert = yahoo_after[i]
+        event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3],finviz_after_alert,yahoo_after_alert)
         if(fail != 1):
             ticker = total_div[i][0]
             nasdaq = total_earn[i][1]
             yahoo = total_earn[i][2]
             finviz = total_earn[i][3]
+
+            finviz_after_alert = finviz_after[i]
+            yahoo_after_alert = yahoo_after[i]
+
             result = service.events().list(calendarId =calendar_id ).execute()
             for i  in range(len(result['items'])):
                
