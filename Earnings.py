@@ -10,7 +10,10 @@ from datetime import datetime , timedelta
 from bs4 import BeautifulSoup
 
 import yahoo_fin.stock_info as si
-
+proxyDict = {
+              "http"  : os.environ.get('IPB_HTTP', ''),
+              "https" : os.environ.get('IPB_HTTPS', '')
+            }
 def nasdaq_earn(ticker):
     headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0',

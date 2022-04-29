@@ -11,7 +11,10 @@ from bs4 import BeautifulSoup
 #Used to get environment variables
 import os
 
-
+proxyDict = {
+              "http"  : os.environ.get('IPB_HTTP', ''),
+              "https" : os.environ.get('IPB_HTTPS', '')
+            }
 
 def nasdaq_div(ticker):
     #Decleration of headers and params for the webscraping
@@ -33,7 +36,8 @@ def nasdaq_div(ticker):
 
     params = { 'assetclass': 'stocks'}
     try:
-      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
+      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
+      print(resonse)
       print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
       response_json = response.json() 
       dividend_data = response_json['data']
