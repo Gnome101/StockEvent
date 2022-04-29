@@ -32,12 +32,9 @@ def nasdaq_div(ticker):
     }
 
     params = { 'assetclass': 'stocks'}
-    proxyDict = {
-              "http"  : os.environ.get('IPB_HTTP', ''),
-              "https" : os.environ.get('IPB_HTTPS', '')
-            }
+    
     try:
-      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
+      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
       print(resonse)
       print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
       response_json = response.json() 
@@ -51,6 +48,7 @@ def nasdaq_div(ticker):
             date = ""    
     except:
       date = ""
+      print("Error in pulling Nasdaq dividend", response)
     return date
 def alpha_div(ticker):
     headers = {

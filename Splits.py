@@ -28,10 +28,7 @@ def polyio_split(ticker):
 
     return date 
 def nasdaq_split(ticker_list):
-    proxyDict = {
-              "http"  : os.environ.get('IPB_HTTP', ''),
-              "https" : os.environ.get('IPB_HTTPS', '')
-            }
+   
     fail = 0
     headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0',
@@ -51,7 +48,7 @@ def nasdaq_split(ticker_list):
 
     params = {'date': '2022-04-14',}
     try:
-        response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params, proxies=proxyDict)
+        response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params)
         print("From NasDaq Pulling",response, "for", "Splits")
         response_json = response.json()
         split_data = response_json['data']['rows']

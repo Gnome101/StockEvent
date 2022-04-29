@@ -27,10 +27,7 @@ def nasdaq_earn(ticker):
     # Requests doesn't support trailers
     # 'TE': 'trailers',
     }
-    proxyDict = {
-              "http"  : os.environ.get('IPB_HTTP', ''),
-              "https" : os.environ.get('IPB_HTTPS', '')
-            }
+  
     try:
         response = requests.get(f'https://api.nasdaq.com/api/analyst/{ticker}/earnings-date', headers=headers)
         print("From NasDaq Pulling",response, "for", ticker, "Earnings")
