@@ -8,7 +8,7 @@ import time
 from datetime import datetime , timedelta
 #Used to get earnings data
 from bs4 import BeautifulSoup
-
+import os
 import yahoo_fin.stock_info as si
 proxyDict = {
               "http"  : os.environ.get('IPB_HTTP', ''),
