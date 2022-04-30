@@ -6,11 +6,7 @@ remind_1_length = int(Info['Data'][3])
 remind_1_type = (Info['Data'][4]).strip()
 remind_2_length = int(Info['Data'][5])
 remind_2_type = (Info['Data'][6]).strip()
-def createDivEvent(ticker,service,polygon,nasdaq,alpha ):
-  print("Here1")
-  print(polygon)
-  print(nasdaq)
-  print(alpha)
+def createDivEvent(ticker,service,polygon,nasdaq,alpha ):  
   fail = 0
   date = nasdaq
   Error =""

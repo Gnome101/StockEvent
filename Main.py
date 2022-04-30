@@ -56,8 +56,7 @@ def main():
 
             #print(len(poly_split) != tickers_len,time.time()-p2 > 60, len(poly_div) == tickers_len)
             if(len(poly_div) != tickers_len and time.time()-p1 >= 60):
-                date = dv.polyio_div(ticker)    
-                print(date)            
+                date = dv.polyio_div(ticker)                               
                 poly_div.append(date)
                 polycount += 1 
             elif(len(poly_split) != tickers_len and time.time()-p2 >= 60 and len(poly_div) == tickers_len):
