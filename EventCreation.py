@@ -55,7 +55,7 @@ def returnEarningTime(alert):
     time = "BMO"
   elif(alert == -1):
     time = "UNK"
-  elif(alert == -2):
+  elif(alert == 2):
     time = "UNK"
   return time
 def createEarnEvent(ticker,service,nasdaq,yahoo,finviz, fin_alert ,yah_alert ): 
