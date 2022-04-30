@@ -85,28 +85,24 @@ def finviz_earn(ticker):
         elif(earn_date.find("AMC") == 1):
             earn_date.find("AMC")
             AMC = 1
-        print(earn_date[:6])
-        earn_date = earn_date[:loc].strip()
-        print("Finv1",earn_date)  
-        year = str(datetime.now().year)
-        earn_date = year +" "+ earn_date
-        print("Finv1",earn_date)  
-        earn_date = datetime.strptime(earn_date, '%Y %b %d')
         
-        print("Finv1",earn_date)  
+        earn_date = earn_date[:loc].strip()         
+        year = str(datetime.now().year)
+        earn_date = year +" "+ earn_date         
+        earn_date = datetime.strptime(earn_date, '%Y %b %d')        
+          
         if(earn_date.date() < datetime.now().date()):
             earn_date = ""
             AMC = -1
     except:
         earn_date = "" 
-        AMC = -1
-    print("Finv2",earn_date)
-    print("Finv3",AMC)
+        AMC = -1    
     return earn_date, AMC
 def yahoo_earn(ticker):
     AMC = 2
     try:
         earn_date = si.get_next_earnings_date(ticker)
+        
         if(earn_date.date() < datetime.now().date()):
             earn_date = "" 
             AMC = -1
@@ -115,6 +111,9 @@ def yahoo_earn(ticker):
                 AMC = 0
             elif(earn_date.hour == 20):
                 AMC = 1
+            earn_date = earn_date.strftime("%Y-%m-%dT0:0:0")
+            earn_date = datetime.strptime(earn_date, "%Y-%m-%dT0:0:0")
+            
     except Exception as ex:
         earn_date = ""
         AMC = -1
