@@ -74,18 +74,18 @@ def main():
                 nascount = 0
             ticker = tickers_list['Ticker'][nascount]
             if(len(nasdaq_div) != tickers_len and time.time()-n1 >= 30 + (random.random() * 5)):
-                #date = dv.nasdaq_div(ticker)
-                #nasdaq_div.append(date)
+                date = dv.nasdaq_div(ticker)
+                nasdaq_div.append(date)
                 nascount += 1
                 n1=time.time()
             elif(len(nasdaq_earn) != tickers_len and time.time()-n2 >= 30 + (random.random() * 5) and len(nasdaq_div) == tickers_len):
-                #date = er.nasdaq_earn(ticker)
-                #nasdaq_earn.append(date)
+                date = er.nasdaq_earn(ticker)
+                nasdaq_earn.append(date)
                 nascount += 1
                 n2=time.time()                                                
             elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len  ):
                 #split_dates = sp.nasdaq_split(tickers_list)  
-                #print("nasdaq", split_dates)              
+                print("nasdaq", split_dates)              
                 #nasdaq_split = split_dates
                 nascount += 1
                 n3=time.time()
