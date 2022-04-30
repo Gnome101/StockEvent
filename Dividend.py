@@ -32,23 +32,27 @@ def nasdaq_div(ticker):
     }
 
     params = { 'assetclass': 'stocks'}
-    proxyDict = {
-              "http"  : os.environ.get('IPB_HTTP', ''),
-              "https" : os.environ.get('IPB_HTTPS', '')
-            }
     try:
-      response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
-      print("NasDaq",response)
-      print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
-      response_json = response.json() 
-      dividend_data = response_json['data']
-      if(dividend_data['exDividendDate'] == 'N/A'):
-          date = ""
-      else:
-          date = dividend_data['dividends']['rows'][0]['exOrEffDate']
-          date = datetime.strptime(date, '%m/%d/%Y')        
-          if(date.date() < datetime.now().date()):
-            date = ""    
+        if "IPB_HTTP" in os.environ:    
+            proxyDict = {
+                "http"  : os.environ.get('IPB_HTTP', ''),
+                "https" : os.environ.get('IPB_HTTPS', '')
+                }    
+            response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
+        else: 
+            response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
+      
+        print("NasDaq",response)
+        print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
+        response_json = response.json() 
+        dividend_data = response_json['data']
+        if(dividend_data['exDividendDate'] == 'N/A'):
+            date = ""
+        else:
+            date = dividend_data['dividends']['rows'][0]['exOrEffDate']
+            date = datetime.strptime(date, '%m/%d/%Y')        
+            if(date.date() < datetime.now().date()):
+              date = ""    
     except:
       date = ""
       print("Error in pulling Nasdaq dividend", response)
