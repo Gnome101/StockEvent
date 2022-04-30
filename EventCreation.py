@@ -77,7 +77,7 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz, fin_alert ,yah_alert ):
       time = returnEarningTime(yah_alert)
     elif(yah_alert == -1):
       time = returnEarningTime(fin_alert)
-  alert = f"| {time}"
+  alert = f" | {time}"
 
   fail = 0
   Error =""
