@@ -150,7 +150,11 @@ def marketbeat_split(ticker_list):
                 found_ticker = found_tickers[i].strip()
                 #print(ticker, found_ticker,found_ticker ==  ticker)      
                 if(found_ticker ==  ticker):            
-                    split_date = list_table[i+1][3]                    
+                    split_date = list_table[i+1][3]
+                    print(split_date = list_table[i+1][2])
+                    print(split_date = list_table[i+1][3])
+                    print(split_date = list_table[i+1][4])
+                                        
                     split_date = datetime.strptime(split_date, '%m/%d/%Y')                
                     if(split_date.date() < datetime.now().date()):
                         split_date = ""

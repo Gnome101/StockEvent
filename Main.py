@@ -56,7 +56,8 @@ def main():
 
             #print(len(poly_split) != tickers_len,time.time()-p2 > 60, len(poly_div) == tickers_len)
             if(len(poly_div) != tickers_len and time.time()-p1 >= 60):
-                date = dv.polyio_div(ticker)                
+                date = dv.polyio_div(ticker)    
+                print(date)            
                 poly_div.append(date)
                 polycount += 1 
             elif(len(poly_split) != tickers_len and time.time()-p2 >= 60 and len(poly_div) == tickers_len):
@@ -84,15 +85,15 @@ def main():
                 nascount += 1
                 n2=time.time()                                                
             elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len  ):
-                #split_dates = sp.nasdaq_split(tickers_list)  
+                split_dates = sp.nasdaq_split(tickers_list)  
                 print("nasdaq", split_dates)              
-                #nasdaq_split = split_dates
+                nasdaq_split = split_dates
                 nascount += 1
                 n3=time.time()
                 if(len(nasdaq_split) != tickers_len ):
                     nasdaq_time_out += 1
                 if(nasdaq_time_out > 2):
-                    print("Nasdaq timed out for splits, making random ones")
+                    print("Nasdaq timed out for splits, making empty ones")
                     for i in range(len(tickers_list)):
                         nasdaq_split.append("")
             elif(len(nasdaq_earn) == tickers_len and nstop == 0 and len(nasdaq_split) == tickers_len ):
