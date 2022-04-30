@@ -86,10 +86,11 @@ def finviz_earn(ticker):
             earn_date.find("AMC")
             AMC = 1
         print(earn_date[:6])
-        earn_date = earn_date[:loc]
+        earn_date = earn_date[:loc].strip()
         print("Finv1",earn_date)  
         year = str(datetime.now().year)
         earn_date = year +" "+ earn_date
+        print("Finv1",earn_date)  
         earn_date = datetime.strptime(earn_date, '%Y %b %d')
         
         print("Finv1",earn_date)  
