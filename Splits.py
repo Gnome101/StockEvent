@@ -45,17 +45,16 @@ def nasdaq_split(ticker_list):
     # Requests doesn't support trailers
     # 'TE': 'trailers',
     }
-
-    params = {'date': '2022-04-14',}
+   
     try:
         if "IPB_HTTP" in os.environ:    
             proxyDict = {
                 "http"  : os.environ.get('IPB_HTTP', ''),
                 "https" : os.environ.get('IPB_HTTPS', '')
                 }    
-            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params, proxies=proxyDict)
+            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, proxies=proxyDict)
         else:
-            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, params=params, proxies=proxyDict)
+            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, proxies=proxyDict)
         print("From NasDaq Pulling",response, "for", "Splits")
         response_json = response.json()
         split_data = response_json['data']['rows']
@@ -151,9 +150,11 @@ def marketbeat_split(ticker_list):
                 #print(ticker, found_ticker,found_ticker ==  ticker)      
                 if(found_ticker ==  ticker):            
                     split_date = list_table[i+1][3]
-                    print(list_table[i+1][2])
+                    
+                    print(list_table[i-1][3])
+                    print(found_ticker)
+                    print(list_table[i][3])
                     print(list_table[i+1][3])
-                    print(list_table[i+1][4])
                                         
                     split_date = datetime.strptime(split_date, '%m/%d/%Y')                
                     if(split_date.date() < datetime.now().date()):
