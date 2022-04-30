@@ -105,7 +105,7 @@ def polyio_div(ticker):
       api_url_dividends = f'https://api.polygon.io/v3/reference/dividends?ticker={ticker}&apiKey={apikeyPoly}'
       print("From Polygon.IO Pulling","for", ticker, "Dividends")
       data_dividend = requests.get(api_url_dividends).json()
-      
+      print(data_dividend)
       if(data_dividend['results'] == []):
           date = ""
       else:
