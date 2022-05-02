@@ -24,7 +24,7 @@ def createDivEvent(ticker,service,polygon,nasdaq,alpha ):
   else:
     fail = 1
     date = datetime.now()        
-#end_time  = date + timedelta(hours = 12)
+  #end_time  = date + timedelta(hours = 12)
   event = {
     'summary': f'{ticker} has an ex-dividend date today' + Error,  
     'description': f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}  ',
