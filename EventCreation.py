@@ -57,27 +57,27 @@ def returnEarningTime(alert):
   elif(alert == 2):
     time = "UNK"
   return time
-def createEarnEvent(ticker,service,nasdaq,yahoo,finviz, fin_alert ,yah_alert ): 
+def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah_alert ): 
+  #nas alert can be 0 or 1
   #fin alert can be 0 or 1
-  #yah alert can be 0, 1, or 2  
+  #yah alert can be 0 or 1   
   time = "UNK"
   print(ticker, fin_alert,yah_alert)
-  if(fin_alert == yah_alert):
+  if(fin_alert == yah_alert and fin_alert == nas_alert):
     if(fin_alert == 1):
       time = "AMC"
-    elif(fin_alert ==0):
+    elif(fin_alert == 0):
       time = "BMO"
     elif(fin_alert == -1):
       time = "UNK"
-  elif(fin_alert != yah_alert):
-    if(fin_alert == 1 and yah_alert == 0):
-      time = "F-AMC | Y-BMO"
-    elif(fin_alert == 0 and yah_alert == 1):
-      time = "F-BMO | Y-AMC"
-    elif(fin_alert == -1):
-      time = returnEarningTime(yah_alert)
-    elif(yah_alert == -1 or yah_alert == 2 ):
-      time = returnEarningTime(fin_alert)
+  elif(fin_alert != yah_alert):    
+    if(nas_alert == -1):
+      if(fin_alert == -1):
+        time = returnEarningTime(yah_alert)
+      elif(yah_alert == -1  ):
+        time = returnEarningTime(fin_alert)
+    else:
+      time = returnEarningTime(nas_alert)
   alert = f" | {time}"
   print(time)
   fail = 0

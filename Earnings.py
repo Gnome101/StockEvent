@@ -36,22 +36,30 @@ def nasdaq_earn(ticker):
             response = requests.get(f'https://api.nasdaq.com/api/analyst/{ticker}/earnings-date', headers=headers, proxies=proxyDict)
         else:
             response = requests.get(f'https://api.nasdaq.com/api/analyst/{ticker}/earnings-date', headers=headers)
+        AMC = 1
         print("From NasDaq Pulling",response, "for", ticker, "Earnings")
         response_json = response.json() 
         date = response_json['data']['announcement']
-    
+        date_AMC = response_json['data']['reportText']
         start = date.find(':') +1
         end = len(date)
         earn_date = date[start:end]
     
         earn_date = earn_date.strip()
         earn_date = datetime.strptime(earn_date, '%b %d, %Y')
+
+        if(date_AMC.find('before market close')):
+            AMC = 0
+        elif(date_AMC.find('after market close')):
+            AMC = 1
+        else:
+            AMC = -1
     except:
         earn_date = datetime.now()- timedelta(days=35)
     if(earn_date.date() < datetime.now().date()):
           earn_date = ""
     
-    return earn_date
+    return earn_date, AMC
 
 def finviz_earn(ticker):
 
@@ -102,7 +110,7 @@ def finviz_earn(ticker):
         AMC = -1    
     return earn_date, AMC
 def yahoo_earn(ticker):
-    AMC = 2
+    AMC = -1
     try:
         earn_date = si.get_next_earnings_date(ticker)
         print(earn_date)

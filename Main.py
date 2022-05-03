@@ -37,6 +37,7 @@ def main():
 
     finviz_after = []
     yahoo_after = []
+    nasdaq_after = []
     polycount = 0
     yahoocount = 0
     scrapecount = 0
@@ -79,8 +80,9 @@ def main():
                 nascount += 1
                 n1=time.time()
             elif(len(nasdaq_earn) != tickers_len and time.time()-n2 >= 30 + (random.random() * 5) and len(nasdaq_div) == tickers_len):
-                date = er.nasdaq_earn(ticker)
+                date, AMC = er.nasdaq_earn(ticker)
                 nasdaq_earn.append(date)
+                nasdaq_after.append(AMC)
                 nascount += 1
                 n2=time.time()                                                
             elif(len(nasdaq_split) != tickers_len and time.time()-n3 >= 30 + (random.random() * 4) and len(nasdaq_earn) == tickers_len  ):
@@ -218,9 +220,10 @@ def main():
     for i in range(len(total_earn)):
         fail = 0
         fail2 = 0
+        nasdaq_after_alert = nasdaq_after[i]
         finviz_after_alert = finviz_after[i]
         yahoo_after_alert = yahoo_after[i]        
-        event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3],finviz_after_alert,yahoo_after_alert)
+        event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3],nasdaq_after_alert,finviz_after_alert,yahoo_after_alert)
         if(fail != 1):
             ticker = total_div[i][0]
             nasdaq = total_earn[i][1]
