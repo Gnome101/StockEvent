@@ -105,7 +105,7 @@ def yahoo_earn(ticker):
     AMC = 2
     try:
         earn_date = si.get_next_earnings_date(ticker)
-        
+        print(earn_date)
         if(earn_date.date() < datetime.now().date()):
             earn_date = "" 
             AMC = -1
@@ -121,6 +121,6 @@ def yahoo_earn(ticker):
         earn_date = ""
         AMC = -1
     print("From Yahoo Pulling",earn_date ,"for", ticker, "Earnings")
-    
+    print(ticker,AMC)
     return earn_date, AMC
      
