@@ -107,11 +107,12 @@ def yahoo_earn(ticker):
         earn_date = si.get_next_earnings_date(ticker)
         print(earn_date)
         #and earn_date.date() > datetime.now().date()+timedelta(days=30)
+        #10:59 is unkown
         if(earn_date.date() < datetime.now().date() ):
             earn_date = "" 
             AMC = -1
         else:
-            if(earn_date.hour <= 12):
+            if(earn_date.hour == 12):
                 AMC = 0
             elif(earn_date.hour >= 20):
                 AMC = 1
