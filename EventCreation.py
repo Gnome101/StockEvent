@@ -62,7 +62,7 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah
   #fin alert can be 0 or 1
   #yah alert can be 0 or 1   
   time = "UNK"
-  print(ticker, fin_alert,yah_alert)
+  print(ticker,nas_alert, fin_alert,yah_alert)
   if(fin_alert == yah_alert and fin_alert == nas_alert):
     if(fin_alert == 1):
       time = "AMC"
@@ -79,7 +79,7 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah
     else:
       time = returnEarningTime(nas_alert)
   alert = f" | {time}"
-  print(time)
+  print(ticker,time)
   fail = 0
   Error =""
   if((nasdaq == yahoo) and (yahoo == finviz)):

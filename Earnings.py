@@ -47,10 +47,10 @@ def nasdaq_earn(ticker):
     
         earn_date = earn_date.strip()
         earn_date = datetime.strptime(earn_date, '%b %d, %Y')
-
-        if(date_AMC.find('before market close')):
+        print(date_AMC)
+        if(date_AMC.find('before market close') > 0):
             AMC = 0
-        elif(date_AMC.find('after market close')):
+        elif(date_AMC.find('after market close') > 0):
             AMC = 1
         else:
             AMC = -1
@@ -58,7 +58,7 @@ def nasdaq_earn(ticker):
         earn_date = datetime.now()- timedelta(days=35)
     if(earn_date.date() < datetime.now().date()):
           earn_date = ""
-    
+    print(ticker,AMC)
     return earn_date, AMC
 
 def finviz_earn(ticker):
