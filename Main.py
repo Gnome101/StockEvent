@@ -126,6 +126,7 @@ def main():
                 date = dv.alpha_div(ticker)
                 alpha_div.append(date)
                 scrapecount += 1
+                s = time.time()
             elif(len(alpha_div) == tickers_len and sstop == 0  ):
                 count += 1
                 sstop = 1
@@ -133,7 +134,6 @@ def main():
                 split_dates = sp.marketbeat_split(tickers_list)
                 print("Marketbeat", split_dates)
                 marketbeat_split = split_dates                
-                s = time.time()
             elif(len(marketbeat_split) == tickers_len and mbstop == 0  ) :                
                 count+=1
                 mbstop = 1
