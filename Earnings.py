@@ -114,7 +114,7 @@ def yahoo_earn(ticker):
         else:
             if(earn_date.hour == 12):
                 AMC = 0
-            elif(earn_date.hour >= 20):
+            elif(earn_date.hour >= 16):
                 AMC = 1
             earn_date = earn_date.strftime("%Y-%m-%dT0:0:0")
             earn_date = datetime.strptime(earn_date, "%Y-%m-%dT0:0:0")
