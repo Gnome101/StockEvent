@@ -54,7 +54,7 @@ def nasdaq_split(ticker_list):
                 }    
             response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, proxies=proxyDict)
         else:
-            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers, proxies=proxyDict)
+            response = requests.get('https://api.nasdaq.com/api/calendar/splits', headers=headers)
         print("From NasDaq Pulling",response, "for", "Splits")
         response_json = response.json()
         split_data = response_json['data']['rows']

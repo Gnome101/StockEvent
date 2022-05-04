@@ -46,19 +46,19 @@ def nasdaq_earn(ticker):
         earn_date = date[start:end]
     
         earn_date = earn_date.strip()
-        earn_date = datetime.strptime(earn_date, '%b %d, %Y')
-        print(date_AMC)
+        earn_date = datetime.strptime(earn_date, '%b %d, %Y')        
         if(date_AMC.find('before market open.') > 0):
             AMC = 0
         elif(date_AMC.find('after market close.') > 0):
             AMC = 1
+        elif(date_AMC.find('estimated') > 0):
+            AMC = 2
         else:
             AMC = -1
     except:
         earn_date = datetime.now()- timedelta(days=35)
     if(earn_date.date() < datetime.now().date()):
-          earn_date = ""
-    print(ticker,AMC)
+          earn_date = ""   
     return earn_date, AMC
 
 def finviz_earn(ticker):
@@ -124,6 +124,8 @@ def yahoo_earn(ticker):
                 AMC = 0
             elif(earn_date.hour >= 16):
                 AMC = 1
+            else:
+                AMC =2
             earn_date = earn_date.strftime("%Y-%m-%dT0:0:0")
             earn_date = datetime.strptime(earn_date, "%Y-%m-%dT0:0:0")
             

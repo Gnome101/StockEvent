@@ -55,10 +55,10 @@ def returnEarningTime(alert):
   elif(alert == -1):
     time = "UNK"
   elif(alert == 2):
-    time = "UNK"
+    time = "EST"
   return time
 def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah_alert ): 
-  #nas alert can be 0 or 1
+  #nas alert can be 0 or 1 or 2-estimated
   #fin alert can be 0 or 1
   #yah alert can be 0 or 1   
   time = "UNK"
@@ -70,7 +70,7 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah
       time = "BMO"
     elif(fin_alert == -1):
       time = "UNK"
-  elif(fin_alert != yah_alert):    
+  else:    
     if(nas_alert == -1):
       if(fin_alert == -1):
         time = returnEarningTime(yah_alert)
