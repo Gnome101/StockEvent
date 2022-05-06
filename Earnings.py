@@ -61,7 +61,8 @@ def nasdaq_earn(ticker):
     except:
         earn_date = datetime.now() - timedelta(days=35)
     if(earn_date.date() < datetime.now().date() or earn_date.date() > datetime.now().date() + timedelta(days=longest)):
-          earn_date = ""   
+          earn_date = "" 
+          AMC = -1  
     return earn_date, AMC
 
 def finviz_earn(ticker):
