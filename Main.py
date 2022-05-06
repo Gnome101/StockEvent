@@ -16,7 +16,7 @@ def refresh(service, calendar_id):
     delUNK = int(Info['Data'][10])   
     
     
-    result = service.events().list(calendarId =calendar_id,maxResults=9999 ).execute()
+    result = service.events().list(calendarId =calendar_id ).execute()
     print(result['items'])
     print(len(result['items']))
     length = len(result['items'])
@@ -221,6 +221,7 @@ def main():
             nasdaq = total_div[i][2]
             alpha = total_div[i][3]
             result = service.events().list(calendarId =calendar_id ).execute()
+            print('div',len(result['items']))
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
@@ -259,6 +260,7 @@ def main():
             yahoo_after_alert = yahoo_after[i]
 
             result = service.events().list(calendarId =calendar_id ).execute()
+            print('earn',len(result['items']))
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
@@ -284,6 +286,7 @@ def main():
             nasdaq = total_split[i][2]
             mbeat = total_split[i][3]
             result = service.events().list(calendarId =calendar_id ).execute()
+            print('split',len(result['items']))
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
