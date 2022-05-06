@@ -20,6 +20,8 @@ def refresh():
     service = build("calendar", "v3",credentials= creds)
     
     result = service.events().list(calendarId =calendar_id ).execute()
+    print(result['items'])
+    print(len(result['items']))
     length = len(result['items'])
     print("Total amount of Events On Calendar:",length)
         
@@ -32,7 +34,7 @@ def refresh():
         if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days = longest_del)  ):
             eventID = result['items'][i]['id']
             service.events().delete(calendarId=calendar_id, eventId=eventID).execute()        
-        elif (title.find("UNK") >= 0 or title.find("EST") >= 0 and delUNK == 1):            
+        elif ((title.find("UNK") >= 0 or title.find("EST") >= 0) and delUNK == 1):            
             eventID = result['items'][i]['id']
             service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
         time.sleep(0.15)
