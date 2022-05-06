@@ -1,7 +1,7 @@
 import requests
 import yahoo_fin.stock_info as si
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 #Used to get environment variables
 import os
