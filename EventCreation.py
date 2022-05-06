@@ -10,6 +10,7 @@ def createDivEvent(ticker,service,polygon,nasdaq,alpha ):
   fail = 0
   date = nasdaq
   Error =""
+  print(ticker,polygon,nasdaq,alpha)
   if((polygon == nasdaq) and(nasdaq == alpha)):
     Error = ""
   else:
