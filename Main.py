@@ -3,16 +3,44 @@ import pandas as pd
 import os
 import Dividend as dv
 import Earnings as er
-from datetime import datetime 
+from datetime import datetime, timedelta
 import Splits as sp   
 import GoogleCalendar as gc
 import EventCreation as ec
 import numpy as np
 import random
 from apiclient.discovery import build
-
+def refresh():
+    Info = pd.read_csv('./Inputs/Info.csv')
+    longest_del = int(Info['Data'][9])
+    delUNK = int(Info['Data'][10])
+    calendar_id,creds = gc.main()
+    
+   
+    service = build("calendar", "v3",credentials= creds)
+    
+    result = service.events().list(calendarId =calendar_id ).execute()
+    length = len(result['items'])
+    print("Total amount of Events On Calendar:",length)
+        
+    for i in range(length):
+        date = result['items'][i]['end']['dateTime'].strip()
+        title = result['items'][i]['summary'].strip()
+        loc = date.find("T")
+        date = date[:loc]   
+        date = datetime.strptime(date,'%Y-%m-%d')              
+        if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days = longest_del)  ):
+            eventID = result['items'][i]['id']
+            service.events().delete(calendarId=calendar_id, eventId=eventID).execute()        
+        elif (title.find("UNK") >= 0 or title.find("EST") >= 0 and delUNK == 1):            
+            eventID = result['items'][i]['id']
+            service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
+        time.sleep(0.15)
+    
 def main():
-
+    calendar_id,creds = gc.main()
+    service = build("calendar", "v3",credentials= creds)
+    refresh()    
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
     sleep = int(Info['Data'][1])
@@ -21,9 +49,7 @@ def main():
 
     Info = pd.read_csv('./Inputs/Info.csv')
     Calendar_Title = Info['Data'][0].strip()
-    print(Calendar_Title)
-    calendar_id,creds = gc.main()
-    service = build("calendar", "v3",credentials= creds)
+    print(Calendar_Title)    
 
     poly_div = []
     poly_split = []
@@ -162,7 +188,7 @@ def main():
             sleep_add = round((random.random() * randsleep),2)
             print(f"Waiting for {round(sleep + sleep_add,2)} seconds now")
             time.sleep(sleep + sleep_add )
-            "Finishd=ed"
+            "Finished"
                   
         
     total_div = []

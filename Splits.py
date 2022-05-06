@@ -5,10 +5,12 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 #Used to get environment variables
 import os
-
+tickers_list = pd.read_csv('./Inputs/TickerList.csv')
+Info = pd.read_csv('./Inputs/Info.csv')
+longest = int(Info['Data'][8])
 def polyio_split(ticker):
     fail = 0
-    apikeyPoly = os.environ["POLYGON_KEY"]    
+    apikeyPoly = os.environ["POLYGON_KEY"] 
     apikeyPoly = apikeyPoly.strip()
     api_url_dividends = f'https://api.polygon.io/v3/reference/splits?ticker={ticker}&apiKey={apikeyPoly}'
     print("From Polygon.IO Pulling","for", ticker, "Splits")
@@ -23,7 +25,7 @@ def polyio_split(ticker):
     else:
         date = data_dividend['results'][0]['execution_date']
         date = datetime.strptime(date, '%Y-%m-%d')
-        if(date.date() < datetime.now().date()):
+        if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
           date = "" 
 
     return date 
@@ -81,7 +83,7 @@ def nasdaq_split(ticker_list):
             if(found_ticker ==  ticker):            
                 split_date = split_data[i]['executionDate']            
                 split_date = datetime.strptime(split_date, '%m/%d/%Y')               
-                if(split_date.date() < datetime.now().date()):              
+                if(split_date.date() < datetime.now().date() or split_date.date() > datetime.now().date() + timedelta(days=longest)):             
                     split_date = "" 
                     split_dates.append(split_date)
                 else:              
@@ -153,7 +155,7 @@ def marketbeat_split(ticker_list):
                     split_date = list_table[i+diff][3]                 
                                         
                     split_date = datetime.strptime(split_date, '%m/%d/%Y')                
-                    if(split_date.date() < datetime.now().date()):
+                    if(split_date.date() < datetime.now().date() or split_date.date() > datetime.now().date() + timedelta(days=longest)):
                         split_date = ""
                         split_dates.append(split_date)   
                     else:

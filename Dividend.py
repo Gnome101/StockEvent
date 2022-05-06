@@ -11,8 +11,10 @@ from bs4 import BeautifulSoup
 #Used to get environment variables
 import os
 
-
-
+tickers_list = pd.read_csv('./Inputs/TickerList.csv')
+Info = pd.read_csv('./Inputs/Info.csv')
+longest = int(Info['Data'][8])
+print("Days out to ignore:",longest)
 def nasdaq_div(ticker):
     #Decleration of headers and params for the webscraping
     headers = {
@@ -32,30 +34,30 @@ def nasdaq_div(ticker):
     }
 
     params = { 'assetclass': 'stocks'}
-    try:
-        if "IPB_HTTP" in os.environ:    
-            proxyDict = {
-                "http"  : os.environ.get('IPB_HTTP', ''),
-                "https" : os.environ.get('IPB_HTTPS', '')
-                }    
-            response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
-        else: 
-            response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
-      
-        print("NasDaq",response)
-        print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
-        response_json = response.json() 
-        dividend_data = response_json['data']
-        if(dividend_data['exDividendDate'] == 'N/A'):
-            date = ""
-        else:
-            date = dividend_data['dividends']['rows'][0]['exOrEffDate']
-            date = datetime.strptime(date, '%m/%d/%Y')        
-            if(date.date() < datetime.now().date()):
-              date = ""    
-    except:
-      date = ""
-      print("Error in pulling Nasdaq dividend", response)
+   # try:
+    if "IPB_HTTP" in os.environ:    
+        proxyDict = {
+            "http"  : os.environ.get('IPB_HTTP', ''),
+            "https" : os.environ.get('IPB_HTTPS', '')
+            }    
+        response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params, proxies=proxyDict)
+    else: 
+        response = requests.get(f'https://api.nasdaq.com/api/quote/{ticker}/dividends', headers=headers, params=params)
+  
+    print("NasDaq",response)
+    print("From NasDaq Pulling","for", ticker.strip(), "Dividends")
+    response_json = response.json() 
+    dividend_data = response_json['data']
+    if(dividend_data['exDividendDate'] == 'N/A'):
+        date = ""
+    else:
+        date = dividend_data['dividends']['rows'][0]['exOrEffDate']
+        date = datetime.strptime(date, '%m/%d/%Y')        
+        if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
+          date = ""    
+#except:
+    date = ""
+    #print("Error in pulling Nasdaq dividend", response)
     return date
 def alpha_div(ticker):
     headers = {
@@ -90,7 +92,7 @@ def alpha_div(ticker):
       else:
         date = dividend_data[0]['attributes']['ex_date']
         date = datetime.strptime(date, '%Y-%m-%d')        
-        if(date.date() < datetime.now().date()):
+        if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
           date = "" 
     except:
       date = ""
@@ -100,7 +102,6 @@ def polyio_div(ticker):
     try:
       now = datetime.now()
       apikeyPoly = os.environ["POLYGON_KEY"] 
-      
       apikeyPoly = apikeyPoly.strip()
       api_url_dividends = f'https://api.polygon.io/v3/reference/dividends?ticker={ticker}&apiKey={apikeyPoly}'
       print("From Polygon.IO Pulling","for", ticker, "Dividends")
@@ -110,7 +111,7 @@ def polyio_div(ticker):
       else:
           date = data_dividend['results'][0]['ex_dividend_date']
           date = datetime.strptime(date, '%Y-%m-%d')
-          if(date.date() < datetime.now().date()):
+          if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
             date = "" 
     except:
       date = ""      

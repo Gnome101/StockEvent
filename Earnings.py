@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 import os
 import yahoo_fin.stock_info as si
 
+tickers_list = pd.read_csv('./Inputs/TickerList.csv')
+Info = pd.read_csv('./Inputs/Info.csv')
+longest = int(Info['Data'][8])
 def nasdaq_earn(ticker):
     headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0',
@@ -56,8 +59,8 @@ def nasdaq_earn(ticker):
         else:
             AMC = -1
     except:
-        earn_date = datetime.now()- timedelta(days=35)
-    if(earn_date.date() < datetime.now().date()):
+        earn_date = datetime.now() - timedelta(days=35)
+    if(earn_date.date() < datetime.now().date() or earn_date.date() > datetime.now().date() + timedelta(days=longest)):
           earn_date = ""   
     return earn_date, AMC
 
@@ -102,9 +105,9 @@ def finviz_earn(ticker):
         earn_date = year +" "+ earn_date         
         earn_date = datetime.strptime(earn_date, '%Y %b %d')        
           
-        if(earn_date.date() < datetime.now().date()):
+        if(earn_date.date() < datetime.now().date() or earn_date.date() > datetime.now().date() + timedelta(days=longest)):
             earn_date = ""
-            AMC = -1
+            AMC = -1            
     except:
         earn_date = "" 
         AMC = -1    
@@ -116,16 +119,17 @@ def yahoo_earn(ticker):
         print(earn_date)
         #and earn_date.date() > datetime.now().date()+timedelta(days=30)
         #10:59 is unkown
-        if(earn_date.date() < datetime.now().date() ):
+        if(earn_date.date() < datetime.now().date() or earn_date.date() > datetime.now().date() + timedelta(days=longest)):
             earn_date = "" 
             AMC = -1
         else:
             if(earn_date.hour == 12):
                 AMC = 0
-            elif(earn_date.hour >= 16):
+            elif(earn_date.hour == 20):
                 AMC = 1
             else:
-                AMC =2
+                AMC = 2
+            print(ticker,earn_date,AMC)
             earn_date = earn_date.strftime("%Y-%m-%dT0:0:0")
             earn_date = datetime.strptime(earn_date, "%Y-%m-%dT0:0:0")
             
@@ -133,6 +137,6 @@ def yahoo_earn(ticker):
         earn_date = ""
         AMC = -1
     print("From Yahoo Pulling",earn_date ,"for", ticker, "Earnings")
-    print(ticker,AMC)
+    
     return earn_date, AMC
      

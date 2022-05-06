@@ -1,9 +1,12 @@
 Title,Data
 Calendar Title, Stock Stuff
-Sleep Time, 55
-Random Sleep, 45
+Sleep Time, 35
+Random Sleep, 20
 Reminder 1 time before event(minutes), 1440
 Reminder 1 type(popup/email), email
 Reminder 2 time before event(minutes), 2880
 Reminder 2 type(popup/email), email
 Days to run(Monday = 0| Tues = 1|...),012345
+Days ahead to ignore, 14
+Days ahead to delete, 100
+Enable "EST" and "UNK" deletion( 0 - No | 1 - Yes), 0

@@ -9,13 +9,11 @@ import os
 
 
 def main():
-       
+    
     SERVICE_ACCOUNT = os.environ["SERVICE_ACCOUNT"]
     service_json = json.loads(SERVICE_ACCOUNT,strict=False)
-
     scopes = ['https://www.googleapis.com/auth/calendar']
-    creds= service_account.Credentials.from_service_account_info(service_json,scopes=scopes)
-    
+    creds = service_account.Credentials.from_service_account_info(service_json,scopes=scopes)
     service = build("calendar", "v3",credentials= creds)   
    
     calendar_ID = os.environ["CALENDAR_ID"]
