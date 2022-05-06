@@ -10,7 +10,7 @@ import EventCreation as ec
 import numpy as np
 import random
 from apiclient.discovery import build
-def refresh(service):
+def refresh(service, calendar_id):
     Info = pd.read_csv('./Inputs/Info.csv')
     longest_del = int(Info['Data'][9])
     delUNK = int(Info['Data'][10])   
@@ -39,7 +39,7 @@ def refresh(service):
 def main():
     calendar_id,creds = gc.main()
     service = build("calendar", "v3",credentials= creds)
-    refresh(service)    
+    refresh(service,calendar_id)    
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
     sleep = int(Info['Data'][1])
