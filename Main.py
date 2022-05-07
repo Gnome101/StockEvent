@@ -21,8 +21,7 @@ def refresh(service, calendar_id):
     
     
     result = service.events().list(calendarId =calendar_id, maxResults=9999 ).execute()
-    print(result['items'])
-    print(len(result['items']))
+    #print(result['items'])
     length = len(result['items'])
     print("Total amount of Events On Calendar:",length)
         
@@ -54,6 +53,7 @@ def main():
     Calendar_Title = Info['Data'][0].strip()
     print(Calendar_Title)    
 
+    #These contain the dates in a datetime object format. Size of each is same as amount of tickers
     poly_div = []
     poly_split = []
     nasdaq_div = []
@@ -63,10 +63,11 @@ def main():
     alpha_div = []
     finviz_earn = []
     marketbeat_split = []
-
+    #These detail the designaitons of AMC, BMO, EST, and UNK
     finviz_after = []
     yahoo_after = []
     nasdaq_after = []
+    #These ensure that the final count is only made when all are finished
     polycount = 0
     yahoocount = 0
     scrapecount = 0
@@ -74,7 +75,7 @@ def main():
     count = 0
     startTime = time.time()
     nasdaq_time_out = 0
-    #Polygon was a little odd, so it needed an extra timer  
+
     p1, p2, n1,n2,n3,y1,s = -65,-65,-65,-65,-65,-65,-65,
     pstop,nstop,ystop,sstop,mbstop,fstop = 0,0,0,0,0,0
     while(count < 9):
@@ -225,7 +226,6 @@ def main():
             nasdaq = total_div[i][2]
             alpha = total_div[i][3]
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-            print('div',len(result['items']))
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
@@ -271,8 +271,7 @@ def main():
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
 
-            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-            print('earn',len(result['items']))
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()            
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
@@ -306,7 +305,6 @@ def main():
             nasdaq = total_split[i][2]
             mbeat = total_split[i][3]
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-            print('split',len(result['items']))
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']

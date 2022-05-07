@@ -1,7 +1,7 @@
 Title,Data
 Calendar Title, Stock Stuff
-Sleep Time, 22
-Random Sleep, 25
+Sleep Time, 55
+Random Sleep, 30
 Reminder 1 time before event(minutes), 1440
 Reminder 1 type(popup/email), email
 Reminder 2 time before event(minutes), 2880
