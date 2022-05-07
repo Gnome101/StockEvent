@@ -244,8 +244,8 @@ def main():
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary =guess_summary.strip()
 
-                if(descrp == guess_descrip ):
-                    
+                if(descrp == guess_descrip and summary == guess_summary):
+                    print(ticker,'FAIL')
                     fail2 = 1  
             if(fail2 != 1):
                 print(ticker, "Making dividend [3]",fail,fail2)
