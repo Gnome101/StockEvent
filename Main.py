@@ -10,13 +10,17 @@ import EventCreation as ec
 import numpy as np
 import random
 from apiclient.discovery import build
+
+def getLength((service, calendar_id)):
+    result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
+    return len(result['items'])
 def refresh(service, calendar_id):
     Info = pd.read_csv('./Inputs/Info.csv')
     longest_del = int(Info['Data'][9])
     delUNK = int(Info['Data'][10])   
     
     
-    result = service.events().list(calendarId =calendar_id ).execute()
+    result = service.events().list(calendarId =calendar_id, maxResults=9999 ).execute()
     print(result['items'])
     print(len(result['items']))
     length = len(result['items'])
@@ -220,7 +224,7 @@ def main():
             polygon = total_div[i][1]
             nasdaq = total_div[i][2]
             alpha = total_div[i][3]
-            result = service.events().list(calendarId =calendar_id ).execute()
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
             print('div',len(result['items']))
             for i  in range(len(result['items'])):
                
@@ -241,7 +245,15 @@ def main():
                     
                     fail2 = 1  
             if(fail2 != 1):
-                service.events().insert(calendarId=calendar_id, body=event).execute()
+               cal_length = getLength(service,calendar_id)
+                PROCEED = 0
+                while(PROCEED == 0):
+                    service.events().insert(calendarId=calendar_id, body=event).execute()
+                    if(getLength(service,calendar_id) > cal_length):
+                        PROCEED = 1
+                    else:
+                        print("Failed to create dividend event, trying again")
+                        time.sleep(1)
 
     for i in range(len(total_earn)):
         fail = 0
@@ -259,7 +271,7 @@ def main():
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
 
-            result = service.events().list(calendarId =calendar_id ).execute()
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
             print('earn',len(result['items']))
             for i  in range(len(result['items'])):
                
@@ -275,7 +287,15 @@ def main():
                 if(descrp == guess_descrip):                    
                     fail2 = 1  
             if(fail2 != 1):
-                service.events().insert(calendarId=calendar_id, body=event).execute()
+                cal_length = getLength(service,calendar_id)
+                PROCEED = 0
+                while(PROCEED == 0):
+                    service.events().insert(calendarId=calendar_id, body=event).execute()
+                    if(getLength(service,calendar_id) > cal_length):
+                        PROCEED = 1
+                    else:
+                        print("Failed to create earnings event, trying again")
+                        time.sleep(1)
     for i in range(len(total_split)):
         fail = 0
         fail2 = 0
@@ -285,7 +305,7 @@ def main():
             polygon = total_split[i][1]
             nasdaq = total_split[i][2]
             mbeat = total_split[i][3]
-            result = service.events().list(calendarId =calendar_id ).execute()
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
             print('split',len(result['items']))
             for i  in range(len(result['items'])):
                
@@ -302,7 +322,15 @@ def main():
                     
                     fail2 = 1  
             if(fail2 != 1):
-                service.events().insert(calendarId=calendar_id, body=event).execute()
+                cal_length = getLength(service,calendar_id)
+                PROCEED = 0
+                while(PROCEED == 0):
+                    service.events().insert(calendarId=calendar_id, body=event).execute()
+                    if(getLength(service,calendar_id) > cal_length):
+                        PROCEED = 1
+                    else:
+                        print("Failed to create split event, trying again")
+                        time.sleep(1)
 
     #np.savetxt("./Outputs/All_Dividends.csv", total_div,  fmt='%s',delimiter=",")
     #np.savetxt("./Outputs/All_Earnings.csv", total_earn,  fmt='%s',delimiter=",")
