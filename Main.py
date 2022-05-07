@@ -11,9 +11,6 @@ import numpy as np
 import random\
 from apiclient.discovery import build
 
-def getLength(service, calendar_id):
-    result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-    return len(result['items'])
 def refresh(service, calendar_id):
     Info = pd.read_csv('./Inputs/Info.csv')
     longest_del = int(Info['Data'][9])
@@ -39,7 +36,9 @@ def refresh(service, calendar_id):
             eventID = result['items'][i]['id']
             service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
         time.sleep(0.15)
-    
+def getLength(service, calendar_id):
+    result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
+    return len(result['items'])    
 def main():
     calendar_id,creds = gc.main()
     service = build("calendar", "v3",credentials= creds)
