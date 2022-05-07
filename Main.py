@@ -8,10 +8,10 @@ import Splits as sp
 import GoogleCalendar as gc
 import EventCreation as ec
 import numpy as np
-import random
+import random\
 from apiclient.discovery import build
 
-def getLength((service, calendar_id)):
+def getLength(service, calendar_id):
     result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
     return len(result['items'])
 def refresh(service, calendar_id):
