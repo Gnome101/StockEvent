@@ -221,14 +221,14 @@ def main():
         fail = 0
         fail2 = 0
         event, fail = ec.createDivEvent(total_div[i][0],service,total_div[i][1],total_div[i][2],total_div[i][3])
-        print(total_div[i][0])      
+        #print(total_div[i][0])      
         if(fail != 1):
             ticker = total_div[i][0]
             polygon = total_div[i][1]
             nasdaq = total_div[i][2]
             alpha = total_div[i][3]
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-            print(ticker, "Making dividend [2]")
+            #print(ticker, "Making dividend [2]")
             for i  in range(len(result['items'])):
                
                 descrp = result['items'][i]['description']
@@ -245,15 +245,15 @@ def main():
                 guess_summary =guess_summary.strip()
 
                 if(descrp == guess_descrip and summary == guess_summary):
-                    print(ticker,'FAIL')
+                    #print(ticker,'FAIL')
                     fail2 = 1  
             if(fail2 != 1):
-                print(ticker, "Making dividend [3]",fail,fail2)
+                #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
-                print(cal_length)
+                #print(cal_length)
                 PROCEED = 0
                 while(PROCEED == 0):
-                    print("Inserting Event now for", ticker)
+                    #print("Inserting Event now for", ticker)
                     service.events().insert(calendarId=calendar_id, body=event).execute()
                     print(ticker, getLength(service,calendar_id))
                     if(getLength(service,calendar_id) > cal_length):
