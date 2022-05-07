@@ -12,7 +12,7 @@ import random
 from apiclient.discovery import build
 
 def getLength(service, calendar_id):
-    time.sleep(.5)
+    time.sleep(.25)
     result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
     return len(result['items'])
 def refresh(service, calendar_id):
