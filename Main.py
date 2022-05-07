@@ -8,9 +8,12 @@ import Splits as sp
 import GoogleCalendar as gc
 import EventCreation as ec
 import numpy as np
-import random\
+import random
 from apiclient.discovery import build
 
+def getLength(service, calendar_id):
+    result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
+    return len(result['items'])
 def refresh(service, calendar_id):
     Info = pd.read_csv('./Inputs/Info.csv')
     longest_del = int(Info['Data'][9])
@@ -36,9 +39,7 @@ def refresh(service, calendar_id):
             eventID = result['items'][i]['id']
             service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
         time.sleep(0.15)
-def getLength(service, calendar_id):
-    result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-    return len(result['items'])    
+    
 def main():
     calendar_id,creds = gc.main()
     service = build("calendar", "v3",credentials= creds)
@@ -244,14 +245,14 @@ def main():
                     
                     fail2 = 1  
             if(fail2 != 1):
-               cal_length = getLength(service,calendar_id)
+                cal_length = getLength(service,calendar_id)
                 PROCEED = 0
                 while(PROCEED == 0):
                     service.events().insert(calendarId=calendar_id, body=event).execute()
                     if(getLength(service,calendar_id) > cal_length):
                         PROCEED = 1
                     else:
-                        print("Failed to create dividend event, trying again")
+                        print("Failed to create earnings event, trying again")
                         time.sleep(1)
 
     for i in range(len(total_earn)):
