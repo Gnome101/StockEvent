@@ -290,7 +290,7 @@ def main():
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
                 
-                if(descrp == guess_descrip):                    
+                if(descrp == guess_descrip and summary.find(guess_summary) >= 0 ):                    
                     fail2 = 1  
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
@@ -323,7 +323,7 @@ def main():
                 guess_summary = f'{ticker} has a split today'
                 guess_summary =guess_summary.strip()
 
-                if(descrp == guess_descrip):
+                if(descrp == guess_descrip and summary.find(guess_summary) >= 0):
                     
                     fail2 = 1  
             if(fail2 != 1):
