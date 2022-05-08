@@ -242,7 +242,7 @@ def main():
                 guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}'
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has an ex-dividend date today'
-                guess_summary =guess_summary.strip()
+                guess_summary = guess_summary.strip()
 
                 if(descrp == guess_descrip and summary == guess_summary):
                     #print(ticker,'FAIL')
@@ -253,14 +253,16 @@ def main():
                 #print(cal_length)
                 PROCEED = 0
                 while(PROCEED == 0):
-                    #print("Inserting Event now for", ticker)
                     service.events().insert(calendarId=calendar_id, body=event).execute()
-                    print(ticker, getLength(service,calendar_id))
                     if(getLength(service,calendar_id) > cal_length):
                         PROCEED = 1
                     else:
-                        print("Failed to create earnings event, trying again")
-                        time.sleep(1)
+                        COUNT = COUNT +1
+                        print("Failed to create dividend event, trying again")
+                        time.sleep(COUNT)
+                        if(COUNT == 3):
+                            print("Skipping event creation")
+                            PROCEED = 1
 
     for i in range(len(total_earn)):
         fail = 0
@@ -290,18 +292,28 @@ def main():
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
                 
-                if(descrp == guess_descrip and summary.find(guess_summary) >= 0 ):                    
-                    fail2 = 1  
+                if(descrp == guess_descrip and summary.find(guess_summary) >= 0  ):
+                    if not (summary.find("EST") >= 0 or summary.find("UNK") >= 0 ):                                       
+                            fail2 = 1  
+                    else:
+                        for j in range(2):
+                            if not (nasdaq_after_alert == (j) or yahoo_after_alert== (j) or finviz_after_alert == (j) ): 
+                                fail2 = 1
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
+                COUNT = 0
                 while(PROCEED == 0):
                     service.events().insert(calendarId=calendar_id, body=event).execute()
                     if(getLength(service,calendar_id) > cal_length):
                         PROCEED = 1
                     else:
+                        COUNT = COUNT +1
                         print("Failed to create earnings event, trying again")
-                        time.sleep(1)
+                        time.sleep(COUNT)
+                        if(COUNT == 3):
+                            print("Skipping event creation")
+                            PROCEED = 1
     for i in range(len(total_split)):
         fail = 0
         fail2 = 0
@@ -334,8 +346,12 @@ def main():
                     if(getLength(service,calendar_id) > cal_length):
                         PROCEED = 1
                     else:
+                        COUNT = COUNT +1
                         print("Failed to create split event, trying again")
-                        time.sleep(1)
+                        time.sleep(COUNT)
+                        if(COUNT == 3):
+                            print("Skipping event creation")
+                            PROCEED = 1
 
     #np.savetxt("./Outputs/All_Dividends.csv", total_div,  fmt='%s',delimiter=",")
     #np.savetxt("./Outputs/All_Earnings.csv", total_earn,  fmt='%s',delimiter=",")
