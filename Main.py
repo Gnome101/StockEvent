@@ -291,12 +291,15 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
-                
+                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)
                 if(descrp == guess_descrip and summary.find(guess_summary) >= 0  ):
-                    if not (summary.find("EST") >= 0 or summary.find("UNK") >= 0 ):                                       
+                    print(ticker,summary)
+                    if not (summary.find("EST") >= 0 or summary.find("UNK") >= 0 ):   
+                            print("Failed")                                    
                             fail2 = 1  
                     else:
                         for j in range(2):
+                            print(ticker,"Alerts",nasdaq_after_alert,yahoo_after_alert,finviz_after_alert)
                             if not (nasdaq_after_alert == (j) or yahoo_after_alert== (j) or finviz_after_alert == (j) ): 
                                 fail2 = 1
             if(fail2 != 1):
