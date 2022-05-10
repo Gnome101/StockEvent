@@ -294,15 +294,14 @@ def main():
                 print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)
                 if(descrp == guess_descrip and summary.find(guess_summary) >= 0  ):
                     print(ticker,summary)
-                    if summary.find("EST") < 0 or summary.find("UNK") < 0 :   
-                            print("Failed")                                    
+                    if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :   
+                            print("Already good event")                                    
                             fail2 = 1  
                     else:
                         for j in range(2):
                             print(ticker,"Alerts",nasdaq_after_alert,yahoo_after_alert,finviz_after_alert)
                             if nasdaq_after_alert == (j) or yahoo_after_alert == (j) or finviz_after_alert == (j) : 
                                 fail2 = 0
-                                break
                             else:
                                 fail2 = 1
             if(fail2 != 1):
