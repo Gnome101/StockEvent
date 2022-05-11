@@ -9,4 +9,4 @@ Reminder 2 type(popup/email), email
 Days to run(Monday = 0| Tues = 1|...),012345
 Days ahead to ignore, 30
 Days ahead to delete, 100
-Enable "EST" and "UNK" deletion( 0 - No | 1 - Yes), 0
+Enable "EST" and "UNK" deletion( 0 - No | 1 - Yes), 1

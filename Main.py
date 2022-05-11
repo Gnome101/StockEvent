@@ -35,9 +35,9 @@ def refresh(service, calendar_id):
         if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days = longest_del)  ):
             eventID = result['items'][i]['id']
             service.events().delete(calendarId=calendar_id, eventId=eventID).execute()        
-        elif ((title.find("UNK") >= 0 or title.find("EST") >= 0) and delUNK == 1):            
-            eventID = result['items'][i]['id']
-            service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
+        #elif ((title.find("UNK") >= 0 or title.find("EST") >= 0) and delUNK == 1):            
+            #eventID = result['items'][i]['id']
+            #service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
         time.sleep(0.15)
     
 def main():
@@ -291,6 +291,7 @@ def main():
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
                 print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)
+                
                 if(descrp == guess_descrip and summary.find(guess_summary) >= 0  ):
                     print(ticker,summary)
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :   
@@ -301,6 +302,10 @@ def main():
                             print(ticker,"Alerts",nasdaq_after_alert,yahoo_after_alert,finviz_after_alert)
                             if nasdaq_after_alert == (j) or yahoo_after_alert == (j) or finviz_after_alert == (j) : 
                                 fail2 = 0
+                                if(delUNK == 1):
+                                    eventID = result['items'][i]['id']
+                                    service.events().delete(calendarId=calendar_id, eventId=eventID).execute() 
+                                break
                             else:
                                 fail2 = 1
             if(fail2 != 1):
