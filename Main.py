@@ -47,7 +47,7 @@ def main():
     tickers_list = pd.read_csv('./Inputs/TickerList.csv')
     Info = pd.read_csv('./Inputs/Info.csv')
     sleep = int(Info['Data'][1])
-    
+    delUNK = int(Info['Data'][10])
     tickers_len = len(tickers_list) 
 
     Info = pd.read_csv('./Inputs/Info.csv')
