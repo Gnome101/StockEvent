@@ -15,6 +15,66 @@ def getLength(service, calendar_id):
     time.sleep(.5)
     result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
     return len(result['items'])
+def findTime(a,b,c):
+    fin_alert = a
+    yah_alert = b
+    nas_alert = c
+    time = "Nothing"
+    if(fin_alert == yah_alert and fin_alert == nas_alert):
+        if(fin_alert == 1):
+            time = "AMC"
+        elif(fin_alert == 0):
+            time = "BMO"
+        elif(fin_alert == 2):
+            time = "EST"
+        elif(fin_alert == -1):
+            time = "UNK"
+    else:    
+        if(nas_alert == -1 ):
+            if(fin_alert == -1):              
+                time = returnEarningTime(yah_alert)
+            elif(nas_alert == 2):       
+                time = returnEarningTime(nas_alert)
+            else:        
+                time = returnEarningTime(fin_alert)
+        else:
+            if(nas_alert != 2):
+                time = returnEarningTime(nas_alert)
+            else:
+                if(fin_alert !=-1):
+                    time = returnEarningTime(fin_alert)
+                else:
+                    time = returnEarningTime(nas_alert)
+    return time
+def isolateDates(guess_descrip):  
+  loc1 = guess_descrip.find(":")
+  loc2 = guess_descrip.find("00:")
+  if(loc2 > loc1+16):
+    date1 = guess_descrip[loc1+1:loc1+2].strip()
+    guess_descrip2 = guess_descrip[loc1+2:]
+  else:
+    date1 = guess_descrip[loc1+1:loc2+8].strip()
+    guess_descrip2 = guess_descrip[loc2+9:]
+  #print("1: ",date1)
+
+  loc1 = guess_descrip2.find(":")
+  loc2 = guess_descrip2.find("00:")
+  if(loc2 > loc1+16):
+    date2 = guess_descrip2[loc1+1:loc1+2]
+    guess_descrip2 = guess_descrip2[loc1+2:]
+  else:
+    date2 = guess_descrip2[loc1+1:loc2+8].strip()
+    guess_descrip2 = guess_descrip2[loc2+9:]
+  #print("2: ",date2)
+
+  loc1 = guess_descrip2.find(":")
+  loc2 = guess_descrip2.find("00:")
+  if(loc2 > loc1+16):
+    date3 = guess_descrip2[loc1+1:loc1+2]
+  else:
+    date3 = guess_descrip2[loc1+1:loc2+8].strip()
+  #print("3: ",date3)
+  return date1,date2,date3
 def refresh(service, calendar_id):
     Info = pd.read_csv('./Inputs/Info.csv')
     longest_del = int(Info['Data'][9])
@@ -244,8 +304,19 @@ def main():
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary = guess_summary.strip()
 
-                if(descrp == guess_descrip and summary.find(guess_summary) >= 0):                                       
-                        fail2 = 1  
+                date1 , date2, date3 = isolateDates(guess_descrip)
+                if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                     nothing= 0
+                else:
+                    fail2 = 0
+                if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                    nothing= 0
+                else:
+                    fail2 = 0
+                if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz.strip() != date3):
+                     nothing= 0
+                else:
+                    fail2 = 0  
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -278,7 +349,10 @@ def main():
 
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
-
+            nasdaq_after_alert = nasdaq_after[i]
+            a = finviz_after_alert
+            b = yahoo_after_alert
+            c = nasdaq_after_alert
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()            
             for i  in range(len(result['items'])):
                
@@ -290,24 +364,36 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
-                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)
-                
-                if(descrp == guess_descrip and summary.find(guess_summary) >= 0  ):
-                    print(ticker,summary)
-                    if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :   
-                            print("Already good event")                                    
-                            fail2 = 1  
-                    else:
-                        for j in range(2):
-                            print(ticker,"Alerts",nasdaq_after_alert,yahoo_after_alert,finviz_after_alert)
-                            if nasdaq_after_alert == (j) or yahoo_after_alert == (j) or finviz_after_alert == (j) : 
-                                fail2 = 0
-                                if(delUNK == 1):
-                                    eventID = result['items'][i]['id']
-                                    service.events().delete(calendarId=calendar_id, eventId=eventID).execute() 
-                                break
+                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)    
+                loc = guess_summary.find("today")
+                if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                    if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
+                        date1 ,date2,date3 = isolateDates(guess_descrip)
+                        if(findTime(a,b,c)=="AMC" or findTime(a,b,c) == "BMO"):
+                            if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                                nothing = 0
                             else:
-                                fail2 = 1
+                                fail2=0
+                            if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                                nothing = 0
+                            else:
+                                fail2=0
+                            if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz. strip() != date3):
+                                nothing = 0
+                            else:
+                                fail2=0   
+                        else:
+                            fail2 = 1
+                    else:
+                        if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
+                            fail2 = 0              
+                        else:
+                            if(delUNK == 1):
+                                #eventID = result['items'][i]['id']
+                                #service.events().delete(calendarId=calendar_id, eventId=eventID).execute()
+                                print("delete")                             
+                            else:
+                                fail2=1
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
@@ -344,9 +430,19 @@ def main():
                 guess_summary = f'{ticker} has a split today'
                 guess_summary =guess_summary.strip()
 
-                if(descrp == guess_descrip and summary.find(guess_summary) >= 0):
-                    
-                    fail2 = 1  
+                date1 , date2, date3 = isolateDates(guess_descrip)
+                if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                     nothing= 0
+                else:
+                    fail2 = 0
+                if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                    nothing= 0
+                else:
+                    fail2 = 0
+                if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz.strip() != date3):
+                     nothing= 0
+                else:
+                    fail2 = 0   
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
@@ -386,8 +482,7 @@ if __name__ == "__main__":
             count += 1
             
     if(count > 0):
-        print("Running Time")
-        main()  
+       main()  
     else:
         print("Not scheduled day")
             

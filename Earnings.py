@@ -50,11 +50,11 @@ def nasdaq_earn(ticker):
     
         earn_date = earn_date.strip()
         earn_date = datetime.strptime(earn_date, '%b %d, %Y')        
-        if(date_AMC.find('before market open.') > 0):
+        if(date_AMC.find('before market open.') >= 0):
             AMC = 0
-        elif(date_AMC.find('after market close.') > 0):
+        elif(date_AMC.find('after market close.') >= 0):
             AMC = 1
-        elif(date_AMC.find('estimated') > 0):
+        elif(date_AMC.find('estimated') >= 0):
             AMC = 2
         else:
             AMC = -1
@@ -77,8 +77,7 @@ def finviz_earn(ticker):
         soup = BeautifulSoup(response_html.content, 'html.parser')
         
         html = list(soup.children)[2]
-        
-        
+                
         body = list(html.children)[3]
         
         tbl = list(body.children)[12]
@@ -97,8 +96,8 @@ def finviz_earn(ticker):
         if(earn_date.find("AMC") == -1):
             loc = earn_date.find("BMO")
             AMC = 0
-        elif(earn_date.find("AMC") == 1):
-            earn_date.find("AMC")
+        elif(earn_date.find("AMC") >= 0):
+            loc = earn_date.find("AMC")
             AMC = 1
         
         earn_date = earn_date[:loc].strip()         

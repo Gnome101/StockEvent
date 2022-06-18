@@ -71,14 +71,24 @@ def createEarnEvent(ticker,service,nasdaq,yahoo,finviz,nas_alert, fin_alert ,yah
       time = "BMO"
     elif(fin_alert == -1):
       time = "UNK"
+    elif(fin_alert == 2):
+      time = "EST"
   else:    
-    if(nas_alert == -1):
-      if(fin_alert == -1):
+    if(nas_alert == -1 ):
+      if(fin_alert == -1):              
         time = returnEarningTime(yah_alert)
-      elif(yah_alert == -1  ):
+      elif(nas_alert == 2):       
+          time = returnEarningTime(nas_alert)
+      else:        
         time = returnEarningTime(fin_alert)
     else:
-      time = returnEarningTime(nas_alert)
+      if(nas_alert != 2):
+        time = returnEarningTime(nas_alert)
+      else:
+        if(fin_alert !=-1):
+          time = returnEarningTime(fin_alert)
+        else:
+          time = returnEarningTime(nas_alert)
   alert = f" | {time}"
   print(ticker,time)
   fail = 0
