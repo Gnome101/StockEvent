@@ -226,7 +226,8 @@ def main():
             if(len(marketbeat_split) != tickers_len and time.time()-s >= 35 + (random.random() * 2)):
                 split_dates = sp.marketbeat_split(tickers_list)
                 print("Marketbeat", split_dates)
-                marketbeat_split = split_dates                
+                marketbeat_split = split_dates 
+                print("Lengths:",len(marketbeat_split),len(tickers_len))               
             elif(len(marketbeat_split) == tickers_len and mbstop == 0  ) :                
                 count+=1
                 mbstop = 1
