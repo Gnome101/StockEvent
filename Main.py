@@ -227,7 +227,7 @@ def main():
                 split_dates = sp.marketbeat_split(tickers_list)
                 print("Marketbeat", split_dates)
                 marketbeat_split = split_dates 
-                print("Lengths:",len(marketbeat_split),len(tickers_len))               
+                print("Lengths:",len(marketbeat_split),tickers_len)               
             elif(len(marketbeat_split) == tickers_len and mbstop == 0  ) :                
                 count+=1
                 mbstop = 1
