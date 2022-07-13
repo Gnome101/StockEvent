@@ -315,6 +315,8 @@ def main():
                 guess_summary = guess_summary.strip()
 
                 date1 , date2, date3 = isolateDates(guess_descrip)
+                print("D1",date1,date2,date3)
+                print("D2",nasdaq,polygon,alpha)
                 if(nasdaq.strip() == date1 or polygon.strip() == date1 or alpha.strip() == date1):
                      nothing= 0
                 else:
@@ -379,6 +381,9 @@ def main():
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
                         date1 ,date2,date3 = isolateDates(guess_descrip)
+                        print("D1",date1,date2,date3)
+                        print("D2",nasdaq,yahoo,finviz)
+                        print("D3",nasdaq.date())
                         if(findTime(a,b,c)=="AMC" or findTime(a,b,c) == "BMO"):
                             if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
                                 nothing = 0
@@ -441,8 +446,8 @@ def main():
                 guess_summary =guess_summary.strip()
 
                 date1 , date2, date3 = isolateDates(guess_descrip)
-                print(date1,date2,date3)
-                print(nasdaq,polygon,mbeat)
+                print("D1",date1,date2,date3)
+                print("D2",nasdaq,polygon,mbeat)
                 if(nasdaq.strip() == date1 or polygon.strip() == date1 or mbeat.strip() == date1):
                      nothing= 0
                 else:
