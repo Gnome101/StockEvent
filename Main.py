@@ -316,16 +316,17 @@ def main():
 
                 date1 , date2, date3 = isolateDates(guess_descrip)
                 print("D1",date1,date2,date3)
-                print("D2",nasdaq,polygon,alpha)
-                if(nasdaq.strip() == date1 or polygon.strip() == date1 or alpha.strip() == date1):
+                print("D2",nasdaq,polygon,alpha,)
+                print(nasdaq == date1,nasdaq != date2,nasdaq != date3)
+                if(nasdaq == date1 or polygon == date1 or alpha == date1):
                      nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date2 or polygon.strip() != date2 or alpha.strip() != date2):
+                if(nasdaq != date2 or polygon != date2 or alpha != date2):
                     nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date3 or polygon.strip() != date3 or alpha.strip() != date3):
+                if(nasdaq != date3 or polygon != date3 or alpha != date3):
                      nothing= 0
                 else:
                     fail2 = 0  
@@ -385,15 +386,15 @@ def main():
                         print("D2",nasdaq,yahoo,finviz)
                         print("D3",nasdaq.date())
                         if(findTime(a,b,c)=="AMC" or findTime(a,b,c) == "BMO"):
-                            if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                            if(nasdaq == date1 or yahoo == date1 or finviz == date1):
                                 nothing = 0
                             else:
                                 fail2=0
-                            if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                            if(nasdaq != date2 or yahoo != date2 or finviz != date2):
                                 nothing = 0
                             else:
                                 fail2=0
-                            if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz. strip() != date3):
+                            if(nasdaq != date3 or yahoo != date3 or finviz != date3):
                                 nothing = 0
                             else:
                                 fail2=0   
