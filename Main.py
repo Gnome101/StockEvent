@@ -317,6 +317,9 @@ def main():
                 date1 , date2, date3 = isolateDates(guess_descrip)
                 print("D1",date1,date2,date3)
                 print("D2",nasdaq,polygon,alpha,)
+                print(nasdaq,date1,nasdaq==date1)
+                print(polygon,date1,polygon==date1)
+                fail2 = 1;
                 print(nasdaq == date1,nasdaq != date2,nasdaq != date3)
                 if(nasdaq == date1 or polygon == date1 or alpha == date1):
                      nothing= 0
@@ -377,7 +380,9 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
-                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)    
+                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)   
+                print("Descriptions",descrp,guess_descrip,descrp==guess_descrip) 
+                print("Summaries",summary,guess_summary,summary==guess_summary)
                 loc = guess_summary.find("today")
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
@@ -385,6 +390,9 @@ def main():
                         print("D1",date1,date2,date3)
                         print("D2",nasdaq,yahoo,finviz)
                         print("D3",nasdaq.date())
+                        print(nasdaq,date1,nasdaq==date1)
+                        print(yahoo,date1,yahoo==date1)
+                        fail2 = 1;
                         if(findTime(a,b,c)=="AMC" or findTime(a,b,c) == "BMO"):
                             if(nasdaq == date1 or yahoo == date1 or finviz == date1):
                                 nothing = 0
@@ -449,6 +457,9 @@ def main():
                 date1 , date2, date3 = isolateDates(guess_descrip)
                 print("D1",date1,date2,date3)
                 print("D2",nasdaq,polygon,mbeat)
+                print(nasdaq,date1,nasdaq==date1)
+                print(polygon,date1,polygon==date1)
+                fail2 = 1;
                 if(nasdaq == date1 or polygon == date1 or mbeat == date1):
                      nothing= 0
                 else:
