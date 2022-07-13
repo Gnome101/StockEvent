@@ -449,15 +449,15 @@ def main():
                 date1 , date2, date3 = isolateDates(guess_descrip)
                 print("D1",date1,date2,date3)
                 print("D2",nasdaq,polygon,mbeat)
-                if(nasdaq.strip() == date1 or polygon.strip() == date1 or mbeat.strip() == date1):
+                if(nasdaq == date1 or polygon == date1 or mbeat == date1):
                      nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date2 or polygon.strip() != date2 or mbeat.strip() != date2):
+                if(nasdaq != date2 or polygon != date2 or mbeat != date2):
                     nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date3 or polygon.strip() != date3 or mbeat.strip() != date3):
+                if(nasdaq!= date3 or polygon!= date3 or mbeat != date3):
                      nothing= 0
                 else:
                     fail2 = 0   
