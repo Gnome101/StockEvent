@@ -136,12 +136,8 @@ def marketbeat_split(ticker_list):
                     found_ticker = company[:i-1] 
                     found_tickers.append(found_ticker)               
                     break
-    except:
-        print("Exception")         
-        split_dates = []
-        found_tickers = []
 
-    for i in range(len(ticker_list)):  
+        for i in range(len(ticker_list)):  
             count = 0    
             ticker = ticker_list['Ticker'][i].strip()
             for i in range(len(found_tickers)):
@@ -162,6 +158,13 @@ def marketbeat_split(ticker_list):
                     count += 1 
                 if(count == len(found_tickers)):
                     split_dates.append("")
+    except:
+        print("Exception")         
+        split_dates = []
+        found_tickers = []
+        for i in range(split_dates):
+            split_dates.append("")
+    
     
     return split_dates
     
