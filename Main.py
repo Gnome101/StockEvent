@@ -306,15 +306,15 @@ def main():
                 guess_summary = guess_summary.strip()
 
                 date1 , date2, date3 = isolateDates(guess_descrip)
-                if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                if(nasdaq.strip() == date1 or polygon.strip() == date1 or alpha.strip() == date1):
                      nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                if(nasdaq.strip() != date2 or polygon.strip() != date2 or alpha.strip() != date2):
                     nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz.strip() != date3):
+                if(nasdaq.strip() != date3 or polygon.strip() != date3 or alpha.strip() != date3):
                      nothing= 0
                 else:
                     fail2 = 0  
@@ -432,15 +432,17 @@ def main():
                 guess_summary =guess_summary.strip()
 
                 date1 , date2, date3 = isolateDates(guess_descrip)
-                if(nasdaq.strip() == date1 or yahoo.strip() == date1 or finviz.strip() == date1):
+                print(date1,date2,date3)
+                print(nasdaq,polygon,mbeat)
+                if(nasdaq.strip() == date1 or polygon.strip() == date1 or mbeat.strip() == date1):
                      nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date2 or yahoo.strip() != date2 or finviz.strip() != date2):
+                if(nasdaq.strip() != date2 or polygon.strip() != date2 or mbeat.strip() != date2):
                     nothing= 0
                 else:
                     fail2 = 0
-                if(nasdaq.strip() != date3 or yahoo.strip() != date3 or finviz.strip() != date3):
+                if(nasdaq.strip() != date3 or polygon.strip() != date3 or mbeat.strip() != date3):
                      nothing= 0
                 else:
                     fail2 = 0   
