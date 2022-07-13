@@ -10,7 +10,16 @@ import EventCreation as ec
 import numpy as np
 import random
 from apiclient.discovery import build
-
+def returnEarningTime(alert):
+  if(alert == 1):
+    time  = "AMC"
+  elif(alert == 0):
+    time = "BMO"
+  elif(alert == -1):
+    time = "UNK"
+  elif(alert == 2):
+    time = "EST"
+  return time
 def getLength(service, calendar_id):
     time.sleep(.5)
     result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
