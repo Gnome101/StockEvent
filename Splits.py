@@ -16,18 +16,18 @@ def polyio_split(ticker):
     print("From Polygon.IO Pulling","for", ticker, "Splits")
     try:
         data_dividend = requests.get(api_url_dividends).json()
+    
+        print(data_dividend)
+        if(data_dividend['results'] == []) or fail == 1:
+            date = ""
+        else:
+            date = data_dividend['results'][0]['execution_date']
+            date = datetime.strptime(date, '%Y-%m-%d')
+            if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
+                date = "" 
     except:
         date = ""
         fail = 1
-    
-    if(data_dividend['results'] == []) or fail == 1:
-        date = ""
-    else:
-        date = data_dividend['results'][0]['execution_date']
-        date = datetime.strptime(date, '%Y-%m-%d')
-        if(date.date() < datetime.now().date() or date.date() > datetime.now().date() + timedelta(days=longest)):
-          date = "" 
-
     return date 
 def nasdaq_split(ticker_list):
    
