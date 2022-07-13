@@ -161,7 +161,7 @@ def marketbeat_split(ticker_list):
         print("Exception")         
         split_dates = []
         found_tickers = []
-        for i in range(len(split_dates)):
+        for i in range(len(tickers_list)):
             split_dates.append("")
         print(len(split_dates))
     
