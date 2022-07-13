@@ -119,13 +119,7 @@ def marketbeat_split(ticker_list):
     response_html=requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
     print("From MarketBeat Pulling","for all", "Splits")
     soup = BeautifulSoup(response_html.content, 'html.parser')
-    html = list(soup.children)[3]   
 
-    next = list(html.children)[3]   
-
-    cll = list(next.children)[5]
-    
-    hgg = list(cll.children)[7]
     
     htmltable = soup.find('table', { 'class' : 'scroll-table sort-table' })
     list_table = tableDataText(htmltable)
