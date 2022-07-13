@@ -120,7 +120,7 @@ def marketbeat_split(ticker_list):
         response_html=requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
         print("From MarketBeat Pulling","for all", "Splits")
         soup = BeautifulSoup(response_html.content, 'html.parser')
-
+        print(soup)
         
         htmltable = soup.find('table', { 'class' : 'scroll-table sort-table' })
         list_table = tableDataText(htmltable)
@@ -162,7 +162,7 @@ def marketbeat_split(ticker_list):
         print("Exception")         
         split_dates = []
         found_tickers = []
-        for i in range(split_dates):
+        for i in range(len(split_dates)):
             split_dates.append("")
     
     
