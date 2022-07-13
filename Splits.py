@@ -114,29 +114,31 @@ def marketbeat_split(ticker_list):
         for tr in trs: # for every table row
             rows.append(rowgetDataText(tr, 'td') ) # data row       
         return rows
-    url = f'https://www.marketbeat.com/stock-splits/'
-    
-    response_html=requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
-    print("From MarketBeat Pulling","for all", "Splits")
-    soup = BeautifulSoup(response_html.content, 'html.parser')
+    try:
+        url = f'https://www.marketbeat.com/stock-splits/'
+        
+        response_html=requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
+        print("From MarketBeat Pulling","for all", "Splits")
+        soup = BeautifulSoup(response_html.content, 'html.parser')
 
-    
-    htmltable = soup.find('table', { 'class' : 'scroll-table sort-table' })
-    list_table = tableDataText(htmltable)
-    split_date = "" 
-    found_tickers = []
-    
-    for i in range(len(list_table)):
-        company = list_table[i][0]
-        ticker_index = i
-        for i in range(len(company)):
-            if(company[i].islower()):               
-                
-                found_ticker = company[:i-1] 
-                found_tickers.append(found_ticker)               
-                break
-                
-    split_dates = []
+        
+        htmltable = soup.find('table', { 'class' : 'scroll-table sort-table' })
+        list_table = tableDataText(htmltable)
+        split_date = "" 
+        found_tickers = []
+        
+        for i in range(len(list_table)):
+            company = list_table[i][0]
+            ticker_index = i
+            for i in range(len(company)):
+                if(company[i].islower()):               
+                    
+                    found_ticker = company[:i-1] 
+                    found_tickers.append(found_ticker)               
+                    break
+    except:
+        print("Exception")         
+        split_dates = []
     
     for i in range(len(ticker_list)):  
             count = 0    
