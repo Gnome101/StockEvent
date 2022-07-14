@@ -393,7 +393,7 @@ def main():
                         date1 ,date2,date3 = isolateDates(guess_descrip)
                         print("D1",date1,date2,date3)
                         print("D2",nasdaq,yahoo,finviz)
-                        print("D3",nasdaq.date())
+                        print("D3",nasdaq)
                         print(nasdaq,date1,nasdaq==date1)
                         print(yahoo,date1,yahoo==date1)
                         fail2 = 1;
