@@ -294,9 +294,9 @@ def main():
         #print(total_div[i][0])      
         if(fail != 1):
             ticker = total_div[i][0]
-            polygon = total_div[i][1]
-            nasdaq = total_div[i][2]
-            alpha = total_div[i][3]
+            polygon =( total_div[i][1]).strftime("%Y-%m-%d %H:%M:%S")
+            nasdaq = (total_div[i][2]).strftime("%Y-%m-%d %H:%M:%S")
+            alpha =( total_div[i][3]).strftime("%Y-%m-%d %H:%M:%S")
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
             #print(ticker, "Making dividend [2]")
             for i  in range(len(result['items'])):
@@ -359,9 +359,9 @@ def main():
         event, fail = ec.createEarnEvent(total_earn[i][0],service,total_earn[i][1],total_earn[i][2],total_earn[i][3],nasdaq_after_alert,finviz_after_alert,yahoo_after_alert)
         if(fail != 1):
             ticker = total_div[i][0]
-            nasdaq = total_earn[i][1]
-            yahoo = total_earn[i][2]
-            finviz = total_earn[i][3]
+            nasdaq = (total_earn[i][1]).strftime("%Y-%m-%d %H:%M:%S")
+            yahoo = (total_earn[i][2]).strftime("%Y-%m-%d %H:%M:%S")
+            finviz = (total_earn[i][3]).strftime("%Y-%m-%d %H:%M:%S")
 
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
@@ -382,7 +382,7 @@ def main():
                 guess_summary =guess_summary.strip()
                 print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)   
                 print("Descriptions",descrp,guess_descrip,descrp==guess_descrip) 
-                print("Summaries",summary,guess_summary,summary==guess_summary)
+                print("Summaries",summary,guess_summary,summary.find(guess_summary) >= 0)
                 loc = guess_summary.find("today")
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
@@ -439,9 +439,9 @@ def main():
         event, fail = ec.createSplitEvent(total_split[i][0],service,total_split[i][1],total_split[i][2],total_split[i][3])
         if(fail != 1):
             ticker = total_div[i][0]
-            polygon = total_split[i][1]
-            nasdaq = total_split[i][2]
-            mbeat = total_split[i][3]
+            polygon = (total_split[i][1]).strftime("%Y-%m-%d %H:%M:%S")
+            nasdaq = (total_split[i][2]).strftime("%Y-%m-%d %H:%M:%S")
+            mbeat = (total_split[i][3]).strftime("%Y-%m-%d %H:%M:%S")
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
             for i  in range(len(result['items'])):
                
