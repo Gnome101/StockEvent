@@ -318,25 +318,24 @@ def main():
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary = guess_summary.strip()
 
-                date1 , date2, date3 = isolateDates(guess_descrip)
-                print("D1",date1,date2,date3)
-                print("D2",nasdaq,polygon,alpha,)
-                print(nasdaq,date1,nasdaq==date1)
-                print(polygon,date1,polygon==date1)
-                #fail2 = 1;
-                print(nasdaq == date1,nasdaq != date2,nasdaq != date3)
-                if(nasdaq == date1 or polygon == date1 or alpha == date1):
-                     nothing= 0
-                else:
-                    fail2 = 0
-                if(nasdaq != date2 or polygon != date2 or alpha != date2):
-                    nothing= 0
-                else:
-                    fail2 = 0
-                if(nasdaq != date3 or polygon != date3 or alpha != date3):
-                     nothing= 0
-                else:
-                    fail2 = 0  
+                date1 ,date2,date3 = isolateDates(descrp)
+                print("Old Dates:",date1,"|",date2,"|",date3)
+                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
+
+                oldDates= [date1 ,date2,date3]
+                newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                fail2 = 1
+                for i in range(len(oldDates)):
+                    for z in range(len(newDates)):
+                        #Compares all of the old dates with the new ones
+                        if(oldDates[i] != newDates[z]):
+                            #Looks to see if the dates are both not blanks
+                            if(oldDates[i] != "" and newDates[z] != ""):
+                                fail2 = 0
+                                break
+                        if(fail2 == 0):
+                            break
+                print("Failed:",fail2)
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -375,45 +374,44 @@ def main():
             c = nasdaq_after_alert
             result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()            
             for i  in range(len(result['items'])):
-               
+               #summary and descrp are the summaries and descriptions of the old event
                 descrp = result['items'][i]['description']
                 summary = result['items'][i]['summary']
                 descrp = descrp.strip()
                 summary = summary.strip()
                 guess_descrip = f'Nasdaq: {nasdaq}\nYahoo: {yahoo}\nFinviz: {finviz}'
                 guess_descrip =guess_descrip.strip()
+                #guess_descrip is the new one thats being added
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
+                #guess summary is the new summary being added
                 print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)   
                 print("Descriptions",descrp,guess_descrip,descrp==guess_descrip) 
-                print("Summaries",summary,guess_summary,summary.find(guess_summary) >= 0)
+                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
                 loc = guess_summary.find("today")
+                #This is where the word today is within the string
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                    #This finds if the events are the same , as in they contain the same thing
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
-                        date1 ,date2,date3 = isolateDates(guess_descrip)
-                        print("D1",date1,date2,date3)
-                        print("D2",nasdaq,yahoo,finviz)
-                        print("D3",nasdaq)
-                        print(nasdaq,date1,nasdaq==date1)
-                        print(yahoo,date1,yahoo==date1)
-                        print(findTime(a,b,c),"AMC",findTime(a,b,c)=="AMC" )
-                        print(findTime(a,b,c),"BMO",findTime(a,b,c)=="BMO" )
-                        #fail2 = 1;
-                        if(findTime(a,b,c)=="AMC" or findTime(a,b,c) == "BMO"):
-                            if(nasdaq == date1 or yahoo == date1 or finviz == date1):
-                                nothing = 0
-                            else:
-                                fail2=0
-                            if(nasdaq != date2 or yahoo != date2 or finviz != date2):
-                                nothing = 0
-                            else:
-                                fail2=0
-                            if(nasdaq != date3 or yahoo != date3 or finviz != date3):
-                                nothing = 0
-                            else:
-                                fail2=0   
-                        else:
-                            fail2 = 1
+                        #This finds if the summary contains BMO or AMC
+                        date1 ,date2,date3 = isolateDates(descrp)
+                        print("Old Dates:",date1,"|",date2,"|",date3)
+                        print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
+
+                        oldDates= [date1 ,date2,date3]
+                        newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                        fail2 = 1
+                        for i in range(len(oldDates)):
+                            for z in range(len(newDates)):
+                                #Compares all of the old dates with the new ones
+                                if(oldDates[i] != newDates[z]):
+                                    #Looks to see if the dates are both not blanks
+                                    if(oldDates[i] != "" and newDates[z] != ""):
+                                        fail2 = 0
+                                        break
+                                if(fail2 == 0):
+                                    break
+                        print("Failed:",fail2)
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
@@ -460,24 +458,24 @@ def main():
                 guess_summary = f'{ticker} has a split today'
                 guess_summary =guess_summary.strip()
 
-                date1 , date2, date3 = isolateDates(guess_descrip)
-                print("D1",date1,date2,date3)
-                print("D2",nasdaq,polygon,mbeat)
-                print(nasdaq,date1,nasdaq==date1)
-                print(polygon,date1,polygon==date1)
-                #fail2 = 1;
-                if(nasdaq == date1 or polygon == date1 or mbeat == date1):
-                     nothing= 0
-                else:
-                    fail2 = 0
-                if(nasdaq != date2 or polygon != date2 or mbeat != date2):
-                    nothing= 0
-                else:
-                    fail2 = 0
-                if(nasdaq!= date3 or polygon!= date3 or mbeat != date3):
-                     nothing= 0
-                else:
-                    fail2 = 0   
+                date1 ,date2,date3 = isolateDates(descrp)
+                print("Old Dates:",date1,"|",date2,"|",date3)
+                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
+
+                oldDates= [date1 ,date2,date3]
+                newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                fail2 = 1
+                for i in range(len(oldDates)):
+                    for z in range(len(newDates)):
+                        #Compares all of the old dates with the new ones
+                        if(oldDates[i] != newDates[z]):
+                            #Looks to see if the dates are both not blanks
+                            if(oldDates[i] != "" and newDates[z] != ""):
+                                fail2 = 0
+                                break
+                        if(fail2 == 0):
+                            break
+                print("Failed:",fail2) 
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
