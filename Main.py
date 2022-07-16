@@ -320,22 +320,28 @@ def main():
 
                 date1 ,date2,date3 = isolateDates(descrp)
                 print("Old Dates:",date1,"|",date2,"|",date3)
-                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
-
+                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                 oldDates= [date1 ,date2,date3]
                 newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
                 fail2 = 1
+                match = 0
+                oldMatch = 0
                 for i in range(len(oldDates)):
                     for z in range(len(newDates)):
-                        #Compares all of the old dates with the new ones
-                        if(oldDates[i] != newDates[z]):
-                            #Looks to see if the dates are both not blanks
-                            if(oldDates[i] != "" and newDates[z] != ""):
-                                fail2 = 0
-                                break
-                        if(fail2 == 0):
-                            break
-                print("Failed:",fail2)
+                        if(oldDates[i].strip() == newDates[z].strip()):
+                            print(oldDates[i],newDates[z])
+                            match +=1
+
+                print("Match:",match)
+                if(match > 0):
+                    oldMatch += match
+                    match = 0
+                if(oldMatch >= 3):
+                    fail2 = 0
+                    print("Pass")
+                else:
+                    print("Fail")
+                print(fail2 , oldMatch)
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -385,8 +391,7 @@ def main():
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
                 #guess summary is the new summary being added
-                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)   
-                print("Descriptions",descrp,guess_descrip,descrp==guess_descrip) 
+                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)               
                 loc = guess_summary.find("today")
                 #This is where the word today is within the string
                 print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
@@ -396,22 +401,28 @@ def main():
                         #This finds if the summary contains BMO or AMC
                         date1 ,date2,date3 = isolateDates(descrp)
                         print("Old Dates:",date1,"|",date2,"|",date3)
-                        print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
-
+                        print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                         oldDates= [date1 ,date2,date3]
                         newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
                         fail2 = 1
+                        match = 0
+                        oldMatch = 0
                         for i in range(len(oldDates)):
                             for z in range(len(newDates)):
-                                #Compares all of the old dates with the new ones
-                                if(oldDates[i] != newDates[z]):
-                                    #Looks to see if the dates are both not blanks
-                                    if(oldDates[i] != "" and newDates[z] != ""):
-                                        fail2 = 0
-                                        break
-                                if(fail2 == 0):
-                                    break
-                        print("Failed:",fail2)
+                                if(oldDates[i].strip() == newDates[z].strip()):
+                                    print(oldDates[i],newDates[z])
+                                    match +=1
+
+                        print("Match:",match)
+                        if(match > 0):
+                            oldMatch += match
+                            match = 0
+                        if(oldMatch >= 3):
+                            fail2 = 0
+                            print("Pass")
+                        else:
+                            print("Fail")
+                        print(fail2 , oldMatch)
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
@@ -460,22 +471,28 @@ def main():
 
                 date1 ,date2,date3 = isolateDates(descrp)
                 print("Old Dates:",date1,"|",date2,"|",date3)
-                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)
-
+                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                 oldDates= [date1 ,date2,date3]
                 newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
                 fail2 = 1
+                match = 0
+                oldMatch = 0
                 for i in range(len(oldDates)):
                     for z in range(len(newDates)):
-                        #Compares all of the old dates with the new ones
-                        if(oldDates[i] != newDates[z]):
-                            #Looks to see if the dates are both not blanks
-                            if(oldDates[i] != "" and newDates[z] != ""):
-                                fail2 = 0
-                                break
-                        if(fail2 == 0):
-                            break
-                print("Failed:",fail2) 
+                        if(oldDates[i].strip() == newDates[z].strip()):
+                            print(oldDates[i],newDates[z])
+                            match +=1
+
+                print("Match:",match)
+                if(match > 0):
+                    oldMatch += match
+                    match = 0
+                if(oldMatch >= 3):
+                    fail2 = 0
+                    print("Pass")
+                else:
+                    print("Fail")
+                print(fail2 , oldMatch) 
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
