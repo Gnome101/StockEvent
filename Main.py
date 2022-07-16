@@ -323,9 +323,9 @@ def main():
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     date1 ,date2,date3 = isolateDates(descrp)
                     print("Old Dates:",date1,"|",date2,"|",date3)
-                    print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
+                    print("New Dates:",polygon,"|",nasdaq,"|",alpha)               
                     oldDates= [date1 ,date2,date3]
-                    newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                    newDates= [polygon.strip() ,nasdaq.strip() ,alpha.strip()]
                     match = 0
                     oldMatch = 0
                     for i in range(len(oldDates)):
@@ -476,9 +476,9 @@ def main():
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     date1 ,date2,date3 = isolateDates(descrp)
                     print("Old Dates:",date1,"|",date2,"|",date3)
-                    print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
+                    print("New Dates:",polygon,"|",nasdaq,"|",mbeat)               
                     oldDates= [date1 ,date2,date3]
-                    newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                    newDates= [polygon.strip() ,nasdaq.strip() ,mbeat.strip()]
                     match = 0
                     oldMatch = 0
                     for i in range(len(oldDates)):
