@@ -319,13 +319,13 @@ def main():
                 guess_summary = guess_summary.strip()
                 loc = guess_summary.find("today")
                 print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
+                fail2 = 0
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     date1 ,date2,date3 = isolateDates(descrp)
                     print("Old Dates:",date1,"|",date2,"|",date3)
                     print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                     oldDates= [date1 ,date2,date3]
                     newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                    fail2 = 1
                     match = 0
                     oldMatch = 0
                     for i in range(len(oldDates)):
@@ -397,6 +397,7 @@ def main():
                 loc = guess_summary.find("today")
                 #This is where the word today is within the string
                 print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
+                fail2 = 0
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     #This finds if the events are the same , as in they contain the same thing
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
@@ -406,7 +407,6 @@ def main():
                         print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                         oldDates= [date1 ,date2,date3]
                         newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                        fail2 = 1
                         match = 0
                         oldMatch = 0
                         for i in range(len(oldDates)):
@@ -472,13 +472,13 @@ def main():
                 guess_summary =guess_summary.strip()
                 loc = guess_summary.find("today")
                 print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
+                fail2 = 0
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     date1 ,date2,date3 = isolateDates(descrp)
                     print("Old Dates:",date1,"|",date2,"|",date3)
                     print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
                     oldDates= [date1 ,date2,date3]
                     newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                    fail2 = 1
                     match = 0
                     oldMatch = 0
                     for i in range(len(oldDates)):
