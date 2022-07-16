@@ -317,31 +317,33 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has an ex-dividend date today'
                 guess_summary = guess_summary.strip()
-
-                date1 ,date2,date3 = isolateDates(descrp)
-                print("Old Dates:",date1,"|",date2,"|",date3)
-                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
-                oldDates= [date1 ,date2,date3]
-                newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                fail2 = 1
-                match = 0
-                oldMatch = 0
-                for i in range(len(oldDates)):
-                    for z in range(len(newDates)):
-                        if(oldDates[i].strip() == newDates[z].strip()):
-                            print(oldDates[i],newDates[z])
-                            match +=1
-
-                print("Match:",match)
-                if(match > 0):
-                    oldMatch += match
+                loc = guess_summary.find("today")
+                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
+                if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                    date1 ,date2,date3 = isolateDates(descrp)
+                    print("Old Dates:",date1,"|",date2,"|",date3)
+                    print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
+                    oldDates= [date1 ,date2,date3]
+                    newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                    fail2 = 1
                     match = 0
-                if(oldMatch >= 3):
-                    fail2 = 0
-                    print("Pass")
-                else:
-                    print("Fail")
-                print(fail2 , oldMatch)
+                    oldMatch = 0
+                    for i in range(len(oldDates)):
+                        for z in range(len(newDates)):
+                            if(oldDates[i].strip() == newDates[z].strip()):
+                                print(oldDates[i],newDates[z])
+                                match +=1
+
+                    print("Match:",match)
+                    if(match > 0):
+                        oldMatch += match
+                        match = 0
+                    if(oldMatch >= 3):
+                        fail2 = 0
+                        print("Pass")
+                    else:
+                        print("Fail")
+                    print(fail2 , oldMatch)
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -468,31 +470,33 @@ def main():
                 guess_descrip =guess_descrip.strip()
                 guess_summary = f'{ticker} has a split today'
                 guess_summary =guess_summary.strip()
-
-                date1 ,date2,date3 = isolateDates(descrp)
-                print("Old Dates:",date1,"|",date2,"|",date3)
-                print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
-                oldDates= [date1 ,date2,date3]
-                newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                fail2 = 1
-                match = 0
-                oldMatch = 0
-                for i in range(len(oldDates)):
-                    for z in range(len(newDates)):
-                        if(oldDates[i].strip() == newDates[z].strip()):
-                            print(oldDates[i],newDates[z])
-                            match +=1
-
-                print("Match:",match)
-                if(match > 0):
-                    oldMatch += match
+                loc = guess_summary.find("today")
+                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
+                if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                    date1 ,date2,date3 = isolateDates(descrp)
+                    print("Old Dates:",date1,"|",date2,"|",date3)
+                    print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
+                    oldDates= [date1 ,date2,date3]
+                    newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
+                    fail2 = 1
                     match = 0
-                if(oldMatch >= 3):
-                    fail2 = 0
-                    print("Pass")
-                else:
-                    print("Fail")
-                print(fail2 , oldMatch) 
+                    oldMatch = 0
+                    for i in range(len(oldDates)):
+                        for z in range(len(newDates)):
+                            if(oldDates[i].strip() == newDates[z].strip()):
+                                print(oldDates[i],newDates[z])
+                                match +=1
+
+                    print("Match:",match)
+                    if(match > 0):
+                        oldMatch += match
+                        match = 0
+                    if(oldMatch >= 3):
+                        fail2 = 0
+                        print("Pass")
+                    else:
+                        print("Fail")
+                    print(fail2 , oldMatch) 
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
