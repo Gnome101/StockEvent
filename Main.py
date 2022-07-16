@@ -387,9 +387,9 @@ def main():
                 #guess summary is the new summary being added
                 print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)   
                 print("Descriptions",descrp,guess_descrip,descrp==guess_descrip) 
-                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
                 loc = guess_summary.find("today")
                 #This is where the word today is within the string
+                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     #This finds if the events are the same , as in they contain the same thing
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
