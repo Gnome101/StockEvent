@@ -330,12 +330,12 @@ def main():
             unkDates = set(newDates) - set(uniqueDates)
             print(ticker,"Unique Dates",sorted(uniqueDates))
             print(ticker,"New Unkown Dates",sorted(unkDates))
-
+            fail2 = 1
             if(len(unkDates) > 0):
                 print(ticker,"New one needed")
                 fail2 = 0
            
-                    
+            print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -415,7 +415,7 @@ def main():
                         unkDates = set(newDates) - set(uniqueDates)
                         print(ticker,"Unique Dates",sorted(uniqueDates))
                         print(ticker,"New Unkown Dates",sorted(unkDates))
-
+                        fail2 = 1
                         if(len(unkDates) > 0):
                             print(ticker,"New one needed")
                             fail2 = 0
@@ -429,6 +429,8 @@ def main():
                                 print("delete")                             
                             else:
                                 fail2=1
+                    
+            print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
@@ -483,11 +485,11 @@ def main():
             unkDates = set(newDates) - set(uniqueDates)
             print(ticker,"Unique Dates",sorted(uniqueDates))
             print(ticker,"New Unkown Dates",sorted(unkDates))
-
+            fail2 = 1
             if(len(unkDates) > 0):
                 print(ticker,"New one needed")
                 fail2 = 0
-           
+            print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
