@@ -329,7 +329,7 @@ def main():
             newDates = [polygon,nasdaq,alpha]
             unkDates = set(newDates) - set(uniqueDates)
             print(ticker,"Unique Dates",sorted(uniqueDates))
-            print(ticker,"New Unkown Dates",sorted(unkDates)[0])
+            print(ticker,"New Unkown Dates",sorted(unkDates))
 
             if(len(unkDates) > 0):
                 print(ticker,"New one needed")
@@ -414,7 +414,7 @@ def main():
                         newDates = [nasdaq,yahoo,finviz]
                         unkDates = set(newDates) - set(uniqueDates)
                         print(ticker,"Unique Dates",sorted(uniqueDates))
-                        print(ticker,"New Unkown Dates",sorted(unkDates)[0])
+                        print(ticker,"New Unkown Dates",sorted(unkDates))
 
                         if(len(unkDates) > 0):
                             print(ticker,"New one needed")
@@ -482,7 +482,7 @@ def main():
             newDates = [polygon,nasdaq,mbeat]
             unkDates = set(newDates) - set(uniqueDates)
             print(ticker,"Unique Dates",sorted(uniqueDates))
-            print(ticker,"New Unkown Dates",sorted(unkDates)[0])
+            print(ticker,"New Unkown Dates",sorted(unkDates))
 
             if(len(unkDates) > 0):
                 print(ticker,"New one needed")
