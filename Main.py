@@ -332,8 +332,9 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                print(ticker,"New one needed")
-                fail2 = 0
+                if(unkDates[0] != ""):
+                    print(ticker,"New one needed")
+                    fail2 = 0  
            
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
@@ -365,7 +366,7 @@ def main():
             nasdaq = fixDate(total_earn[i][1])
             yahoo = fixDate(total_earn[i][2])
             finviz = fixDate(total_earn[i][3])
-
+            print("Finviz2",finviz)
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
             nasdaq_after_alert = nasdaq_after[i]
@@ -387,8 +388,7 @@ def main():
                 #guess summary is the new summary being added
                 loc = guess_summary.find("today")
                 #This is where the word today is within the string
-                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
-                fail2 = 0
+                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)                
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     #This finds if the events are the same , as in they contain the same thing
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
@@ -412,13 +412,15 @@ def main():
                                     
                             
                         newDates = [nasdaq,yahoo,finviz]
+                        print("Finviz3",finviz)
                         unkDates = set(newDates) - set(uniqueDates)
                         print(ticker,"Unique Dates",sorted(uniqueDates))
                         print(ticker,"New Unkown Dates",sorted(unkDates))
                         fail2 = 1
                         if(len(unkDates) > 0):
-                            print(ticker,"New one needed")
-                            fail2 = 0
+                            if(unkDates[0] != ""):
+                                print(ticker,"New one needed")
+                                fail2 = 0  
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
@@ -487,8 +489,9 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                print(ticker,"New one needed")
-                fail2 = 0
+                if(unkDates[0] != ""):
+                    print(ticker,"New one needed")
+                    fail2 = 0                
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)

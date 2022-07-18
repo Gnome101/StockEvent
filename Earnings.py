@@ -111,6 +111,7 @@ def finviz_earn(ticker):
     except:
         earn_date = "" 
         AMC = -1    
+    print("Finviz",ticker,"|",earn_date)
     return earn_date, AMC
 def yahoo_earn(ticker):
     AMC = -1
