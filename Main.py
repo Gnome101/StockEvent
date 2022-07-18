@@ -332,7 +332,7 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                if(unkDates[0] != ""):
+                if(sorted(unkDates)[0] != ""):
                     print(ticker,"New one needed")
                     fail2 = 0  
            
@@ -418,7 +418,7 @@ def main():
                         print(ticker,"New Unkown Dates",sorted(unkDates))
                         fail2 = 1
                         if(len(unkDates) > 0):
-                            if(unkDates[0] != ""):
+                            if(sorted(unkDates)[0] != ""):
                                 print(ticker,"New one needed")
                                 fail2 = 0  
                     else:
@@ -489,7 +489,7 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                if(unkDates[0] != ""):
+                if(sorted(unkDates)[0] != ""):
                     print(ticker,"New one needed")
                     fail2 = 0                
             print(ticker,"Failed?:",fail2)
