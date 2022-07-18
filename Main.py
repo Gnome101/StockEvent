@@ -291,6 +291,7 @@ def main():
     fail = 0
     fail2 = 0  
     #Check for mimicked events and check for updates events.  
+    print("Dividends -------------------------------------------------")
     for i in range(len(total_div)):
         fail = 0
         fail2 = 0
@@ -301,49 +302,40 @@ def main():
             polygon =fixDate( total_div[i][1])
             nasdaq = fixDate(total_div[i][2])
             alpha =fixDate( total_div[i][3])
-            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
-            #print(ticker, "Making dividend [2]")
+            result = service.events().list(calendarId =calendar_id, maxResults=99999 ).execute()
+            #guess_descrip = (f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}').strip()
+
+            guess_summary = (f'{ticker} has an ex-dividend date today').strip()
+            fail2 = 1
+            allDates = [""]
             for i  in range(len(result['items'])):
                
-                descrp = result['items'][i]['description']
-                summary = result['items'][i]['summary']
-                #remind = result['items'][i]['reminders']
+                descrp = (result['items'][i]['description']).strip()
+                summary = (result['items'][i]['summary']).strip()
+                #remind = (result['items'][i]['reminders']).strip()                
 
-                descrp = descrp.strip()
-                summary = summary.strip()
-                #remind = remind.strip()
-
-                guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nSeeking Alpha: {alpha}'
-                guess_descrip =guess_descrip.strip()
-                guess_summary = f'{ticker} has an ex-dividend date today'
-                guess_summary = guess_summary.strip()
-                loc = guess_summary.find("today")
-                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
-                fail2 = 0
+                loc = guess_summary.find("today")                
+                
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
-                    date1 ,date2,date3 = isolateDates(descrp)
-                    print("Old Dates:",date1,"|",date2,"|",date3)
-                    print("New Dates:",polygon,"|",nasdaq,"|",alpha)               
-                    oldDates= [date1 ,date2,date3]
-                    newDates= [polygon.strip() ,nasdaq.strip() ,alpha.strip()]
-                    match = 0
-                    oldMatch = 0
-                    for i in range(len(oldDates)):
-                        for z in range(len(newDates)):
-                            if(oldDates[i].strip() == newDates[z].strip()):
-                                print(oldDates[i],newDates[z])
-                                match +=1
+                    date1 ,date2,date3 = isolateDates(descrp)                    
+                    allDates.append(date1)
+                    allDates.append(date2)
+                    allDates.append(date3)
+            print(allDates)
+            uniqueDates =[""]
+            uniqueDates = set(allDates) - set(uniqueDates)        
+                        
+                   
+            newDates = [polygon,nasdaq,alpha]
+            unkDates = set(newDates) - set(uniqueDates)
+            print(ticker,"Unique Dates",sorted(uniqueDates))
+            print(ticker,"New Unkown Dates",sorted(unkDates)[0])
 
-                    print("Match:",match)
-                    if(match > 0):
-                        oldMatch += match
-                        match = 0
-                    if(oldMatch >= 3):
-                        fail2 = 0
-                        print("Pass")
-                    else:
-                        print("Fail")
-                    print(fail2 , oldMatch)
+            if(len(unkDates) > 0):
+                print(ticker,"New one needed")
+                fail2 = 0
+           
+                    
             if(fail2 != 1):
                 #print(ticker, "Making dividend [3]",fail,fail2)
                 cal_length = getLength(service,calendar_id)
@@ -360,7 +352,7 @@ def main():
                         if(COUNT == 3):
                             print("Skipping event creation")
                             PROCEED = 1
-
+    print("Earnings -------------------------------------------------")
     for i in range(len(total_earn)):
         fail = 0
         fail2 = 0
@@ -380,20 +372,19 @@ def main():
             a = finviz_after_alert
             b = yahoo_after_alert
             c = nasdaq_after_alert
-            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()            
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()    
+
             for i  in range(len(result['items'])):
                #summary and descrp are the summaries and descriptions of the old event
                 descrp = result['items'][i]['description']
                 summary = result['items'][i]['summary']
                 descrp = descrp.strip()
                 summary = summary.strip()
-                guess_descrip = f'Nasdaq: {nasdaq}\nYahoo: {yahoo}\nFinviz: {finviz}'
-                guess_descrip =guess_descrip.strip()
+                
                 #guess_descrip is the new one thats being added
                 guess_summary = f'{ticker} has earnings today'
                 guess_summary =guess_summary.strip()
                 #guess summary is the new summary being added
-                print(ticker,"Equal Events",descrp == guess_descrip and summary.find(guess_summary) >= 0)               
                 loc = guess_summary.find("today")
                 #This is where the word today is within the string
                 print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
@@ -401,30 +392,33 @@ def main():
                 if(summary.find(guess_summary[:loc+5]) >= 0 ):
                     #This finds if the events are the same , as in they contain the same thing
                     if summary.find("BMO") >= 0 or summary.find("AMC") >= 0 :
-                        #This finds if the summary contains BMO or AMC
-                        date1 ,date2,date3 = isolateDates(descrp)
-                        print("Old Dates:",date1,"|",date2,"|",date3)
-                        print("New Dates:",nasdaq,"|",yahoo,"|",finviz)               
-                        oldDates= [date1 ,date2,date3]
-                        newDates= [nasdaq.strip() ,yahoo.strip() ,finviz.strip()]
-                        match = 0
-                        oldMatch = 0
-                        for i in range(len(oldDates)):
-                            for z in range(len(newDates)):
-                                if(oldDates[i].strip() == newDates[z].strip()):
-                                    print(oldDates[i],newDates[z])
-                                    match +=1
+                        print("Already has a time")                        
+                        fail2 = 1
+                        allDates = [""]
+                        for i  in range(len(result['items'])):                        
+                            descrp = (result['items'][i]['description']).strip()
+                            summary = (result['items'][i]['summary']).strip()
+                            #remind = (result['items'][i]['reminders']).strip()         
 
-                        print("Match:",match)
-                        if(match > 0):
-                            oldMatch += match
-                            match = 0
-                        if(oldMatch >= 3):
+                            loc = guess_summary.find("today")                     
+                            if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                                date1 ,date2,date3 = isolateDates(descrp)                    
+                                allDates.append(date1)
+                                allDates.append(date2)
+                                allDates.append(date3)
+                        print(allDates)
+                        uniqueDates =[""]
+                        uniqueDates = set(allDates) - set(uniqueDates)        
+                                    
+                            
+                        newDates = [nasdaq,yahoo,finviz]
+                        unkDates = set(newDates) - set(uniqueDates)
+                        print(ticker,"Unique Dates",sorted(uniqueDates))
+                        print(ticker,"New Unkown Dates",sorted(unkDates)[0])
+
+                        if(len(unkDates) > 0):
+                            print(ticker,"New one needed")
                             fail2 = 0
-                            print("Pass")
-                        else:
-                            print("Fail")
-                        print(fail2 , oldMatch)
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
@@ -450,6 +444,7 @@ def main():
                         if(COUNT == 3):
                             print("Skipping event creation")
                             PROCEED = 1
+    print("Splits -------------------------------------------------")
     for i in range(len(total_split)):
         fail = 0
         fail2 = 0
@@ -459,44 +454,40 @@ def main():
             polygon = fixDate(total_split[i][1])
             nasdaq = fixDate(total_split[i][2])
             mbeat = fixDate(total_split[i][3])
-            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute()
+            result = service.events().list(calendarId =calendar_id, maxResults=9999  ).execute() 
+            
+
+            guess_summary = f'{ticker} has a split today'
+            guess_summary =guess_summary.strip()
+            fail2 = 1
+            allDates = [""]
             for i  in range(len(result['items'])):
                
-                descrp = result['items'][i]['description']
-                summary = result['items'][i]['summary']
-                descrp = descrp.strip()
-                summary = summary.strip()
-                guess_descrip = f'Polygon.IO: {polygon}\nNasdaq: {nasdaq}\nMarketBeat: {mbeat}'
-                guess_descrip =guess_descrip.strip()
-                guess_summary = f'{ticker} has a split today'
-                guess_summary =guess_summary.strip()
-                loc = guess_summary.find("today")
-                print("Summaries",summary,guess_summary,summary.find(guess_summary[:loc+5]) >= 0)
-                fail2 = 0
-                if(summary.find(guess_summary[:loc+5]) >= 0 ):
-                    date1 ,date2,date3 = isolateDates(descrp)
-                    print("Old Dates:",date1,"|",date2,"|",date3)
-                    print("New Dates:",polygon,"|",nasdaq,"|",mbeat)               
-                    oldDates= [date1 ,date2,date3]
-                    newDates= [polygon.strip() ,nasdaq.strip() ,mbeat.strip()]
-                    match = 0
-                    oldMatch = 0
-                    for i in range(len(oldDates)):
-                        for z in range(len(newDates)):
-                            if(oldDates[i].strip() == newDates[z].strip()):
-                                print(oldDates[i],newDates[z])
-                                match +=1
+                descrp = (result['items'][i]['description']).strip()
+                summary = (result['items'][i]['summary']).strip()
+                #remind = (result['items'][i]['reminders']).strip()                
 
-                    print("Match:",match)
-                    if(match > 0):
-                        oldMatch += match
-                        match = 0
-                    if(oldMatch >= 3):
-                        fail2 = 0
-                        print("Pass")
-                    else:
-                        print("Fail")
-                    print(fail2 , oldMatch) 
+                loc = guess_summary.find("today")                
+                
+                if(summary.find(guess_summary[:loc+5]) >= 0 ):
+                    date1 ,date2,date3 = isolateDates(descrp)                    
+                    allDates.append(date1)
+                    allDates.append(date2)
+                    allDates.append(date3)
+            print(allDates)
+            uniqueDates =[""]
+            uniqueDates = set(allDates) - set(uniqueDates)        
+                        
+                   
+            newDates = [polygon,nasdaq,mbeat]
+            unkDates = set(newDates) - set(uniqueDates)
+            print(ticker,"Unique Dates",sorted(uniqueDates))
+            print(ticker,"New Unkown Dates",sorted(unkDates)[0])
+
+            if(len(unkDates) > 0):
+                print(ticker,"New one needed")
+                fail2 = 0
+           
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
                 PROCEED = 0
