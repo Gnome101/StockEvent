@@ -422,6 +422,11 @@ def main():
                             if(sorted(unkDates)[0] != ""):
                                 print(ticker,"New one needed")
                                 fail2 = 0  
+                        dates = set(allDates) - set([""]) 
+                        print("Remaining Dates:",sorted(dates))
+                        if(len(dates) < len(newDates)):
+                            print(ticker,"New one needed")
+                            fail2 = 0  
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
