@@ -422,9 +422,10 @@ def main():
                             if(sorted(unkDates)[0] != ""):
                                 print(ticker,"New one needed")
                                 fail2 = 0  
-                        dates = set(allDates) - set([""]) 
-                        print("Remaining Dates:",sorted(dates))
-                        if(len(dates) < len(newDates)):
+                        print("Remaining Dates:",sorted(allDates))
+                        filteredDates = list(filter(None, allDates))
+                        print("Filtered Dates",filteredDates)
+                        if(len(filteredDates) < len(newDates)):
                             print(ticker,"New one needed")
                             fail2 = 0  
                     else:
