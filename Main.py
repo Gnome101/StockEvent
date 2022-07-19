@@ -366,7 +366,7 @@ def main():
             nasdaq = fixDate(total_earn[i][1])
             yahoo = fixDate(total_earn[i][2])
             finviz = fixDate(total_earn[i][3])
-            print(ticker,total_div[i])
+            print(ticker,total_earn[i])
             print(ticker,"Finviz 2",finviz)
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
