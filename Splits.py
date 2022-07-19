@@ -17,7 +17,6 @@ def polyio_split(ticker):
     try:
         data_dividend = requests.get(api_url_dividends).json()
     
-        print(data_dividend)
         if(data_dividend['results'] == []) or fail == 1:
             date = ""
         else:
