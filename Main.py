@@ -456,6 +456,7 @@ def main():
                             print("Skipping event creation")
                             PROCEED = 1
     print("Splits -------------------------------------------------")
+    print("Total Splits",len(total_split))
     for i in range(len(total_split)):
         fail = 0
         fail2 = 0

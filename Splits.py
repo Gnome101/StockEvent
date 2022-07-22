@@ -27,6 +27,7 @@ def polyio_split(ticker):
     except:
         date = ""
         fail = 1
+    print("Split Date:",date)
     return date 
 def nasdaq_split(ticker_list):
    
