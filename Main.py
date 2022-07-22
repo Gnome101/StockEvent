@@ -332,9 +332,11 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                if(sorted(unkDates)[0] != ""):
+                if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
+                    fail2 = 1  
+                else:
                     print(ticker,"New one needed")
-                    fail2 = 0  
+                    fail2 = 0 
            
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
@@ -419,7 +421,9 @@ def main():
                         print(ticker,"New Unkown Dates",sorted(unkDates))
                         fail2 = 1
                         if(len(unkDates) > 0):
-                            if(sorted(unkDates)[0] != ""):
+                            if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
+                                fail2 = 1  
+                            else:
                                 print(ticker,"New one needed")
                                 fail2 = 0  
                         print("Remaining Dates:",sorted(allDates))
@@ -497,9 +501,11 @@ def main():
             print(ticker,"New Unkown Dates",sorted(unkDates))
             fail2 = 1
             if(len(unkDates) > 0):
-                if(sorted(unkDates)[0] != ""):
+                if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
+                    fail2 = 1  
+                else:
                     print(ticker,"New one needed")
-                    fail2 = 0                
+                    fail2 = 0               
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
