@@ -328,15 +328,23 @@ def main():
                    
             newDates = [polygon,nasdaq,alpha]
             unkDates = set(newDates) - set(uniqueDates)
-            print(ticker,"Unique Dates",sorted(uniqueDates))
-            print(ticker,"New Unkown Dates",sorted(unkDates))
-            fail2 = 1
+            print("Unique Dates",sorted(uniqueDates))
+            print("New Unkown Dates",sorted(unkDates))
             if(len(unkDates) > 0):
                 if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
                     fail2 = 1  
                 else:
-                    print(ticker,"New one needed")
-                    fail2 = 0 
+                    print("New one needed")
+                    fail2 = 0  
+            print("Remaining Dates:",sorted(allDates))
+            filteredAllDates = list(filter(None, allDates))
+            filteredNewDates = list(filter(None, newDates))
+            print("Filtered Dates",filteredAllDates)
+            print("Filtered Dates",filteredNewDates)
+
+            if(len(filteredAllDates) < len(filteredNewDates)):
+                print("New one needed")
+                fail2 = 0    
            
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
@@ -505,15 +513,22 @@ def main():
                    
             newDates = [polygon,nasdaq,mbeat]
             unkDates = set(newDates) - set(uniqueDates)
-            print(ticker,"Unique Dates",sorted(uniqueDates))
-            print(ticker,"New Unkown Dates",sorted(unkDates))
-            fail2 = 1
+            
+            print("Unique Dates",sorted(uniqueDates))
+            print("New Unkown Dates",sorted(unkDates))
             if(len(unkDates) > 0):
                 if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
                     fail2 = 1  
                 else:
-                    print(ticker,"New one needed")
-                    fail2 = 0               
+                    print("New one needed")
+                    fail2 = 0  
+            print("Remaining Dates:",sorted(allDates))
+            filteredAllDates = list(filter(None, allDates))
+            filteredNewDates = list(filter(None, newDates))          
+
+            if(len(filteredAllDates) < len(filteredNewDates)):
+                print("New one needed")
+                fail2 = 0    
             print(ticker,"Failed?:",fail2)
             if(fail2 != 1):
                 cal_length = getLength(service,calendar_id)
