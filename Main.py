@@ -424,18 +424,23 @@ def main():
                         print(ticker,"Unique Dates",sorted(uniqueDates))
                         print(ticker,"New Unkown Dates",sorted(unkDates))
                         fail2 = 1
+                        print("Unique Dates",sorted(uniqueDates))
+                        print("New Unkown Dates",sorted(unkDates))
                         if(len(unkDates) > 0):
                             if(len(unkDates) == 1  and(sorted(unkDates)[0] == "")):                    
                                 fail2 = 1  
                             else:
-                                print(ticker,"New one needed")
+                                print("New one needed")
                                 fail2 = 0  
-                        print("Remaining Dates:",sorted(allDates))
-                        filteredDates = list(filter(None, allDates))
-                        print("Filtered Dates",filteredDates)
-                        if(len(filteredDates) < len(newDates)):
-                            print(ticker,"New one needed")
-                            fail2 = 0  
+                            print("Remaining Dates:",sorted(allDates))
+                            filteredAllDates = list(filter(None, allDates))
+                            filteredNewDates = list(filter(None, newDates))
+                            print("Filtered Dates",filteredAllDates)
+                            print("Filtered Dates",filteredNewDates)
+
+                            if(len(filteredAllDates) < len(filteredNewDates)):
+                                print("New one needed")
+                                fail2 = 0  
                     else:
                         if (findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "AMC" or findTime(finviz_after_alert,yahoo_after_alert,nasdaq_after_alert) == "BMO"): 
                             fail2 = 0              
@@ -464,7 +469,6 @@ def main():
                             print("Skipping event creation")
                             PROCEED = 1
     print("Splits -------------------------------------------------")
-    print("Total Splits",len(total_split))
     for i in range(len(total_split)):
         fail = 0
         fail2 = 0
