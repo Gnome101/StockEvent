@@ -369,7 +369,9 @@ def main():
             yahoo = fixDate(total_earn[i][2])
             finviz = fixDate(total_earn[i][3])
             print(ticker,total_earn[i])
-            print(ticker,"Finviz 2",finviz)
+            print(ticker, "Nasdaq 3",nasdaq)
+            print(ticker, "Yahoo 3",yahoo)
+            print(ticker, "Finviz 3",finviz)
             finviz_after_alert = finviz_after[i]
             yahoo_after_alert = yahoo_after[i]
             nasdaq_after_alert = nasdaq_after[i]
@@ -415,6 +417,8 @@ def main():
                                     
                             
                         newDates = [nasdaq,yahoo,finviz]
+                        print(ticker, "Nasdaq 3",nasdaq)
+                        print(ticker, "Yahoo 3",yahoo)
                         print(ticker, "Finviz 3",finviz)
                         unkDates = set(newDates) - set(uniqueDates)
                         print(ticker,"Unique Dates",sorted(uniqueDates))
